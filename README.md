@@ -2,9 +2,9 @@
 <!               -------- !end! INTRODUCTION                --------> 
 ## 📝 INTRODUCTION
 
-+ **OBJECTIVE**	
++ **OBJECTIVE**
 
-	text 
+	text
 
 + **PROTOTYPE**
 

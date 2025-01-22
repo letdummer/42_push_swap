@@ -1,0 +1,15 @@
+
+*.txt
+
+*.a
+
+
+
+
+*checker_*
+
+#to submit
+#*.md
+#*.sh
+#*subject*
+#.gitignore

@@ -14,13 +14,15 @@ NAME= push_swap
 #									FILES  				     				   #
 #------------------------------------------------------------------------------#
 
-OBJ_DIR = $(SRC_DIR:.c=.o)
+OBJ_DIR		= obj/
+OBJ			= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-#SRC_DIR = [list the ".c" files]
-SRC_DIR= 
+SRC_DIR		= src/
+#SRC = [list the ".c" files]
+SRC			= $(addprefix $(SRC_DIR)/, *.c ) #edit with all .c names
 
-LIBFT_DIR = libft/
-LIBFT_LIB = /libft/libft.a
+LIBFT_DIR	= libft/
+LIBFT_LIB	= /libft/libft.a
 
 INPUT = 1 3 5 -10 -50 87 6
 
@@ -55,26 +57,14 @@ RM= rm -f
 
 all: $(NAME)
 
-$(NAME): $(OBJ_DIR)
+$(NAME): $(LIBFT_LIB) $(OBJ)
 	$(call success, "All files have been compiled ✅")
-	@sleep 0.1
 	$(call text, "Creating library $(NAME) [...]")
-	@sleep 0.1
-	@echo "$(CYAN)██████  ██    ██ ███████ ██   ██         ███████ ██     ██  █████  ██████"
-	@sleep 0.1
-	@echo "██   ██ ██    ██ ██      ██   ██         ██      ██     ██ ██   ██ ██   ██ "
-	@sleep 0.1
-	@echo "██████  ██    ██ ███████ ███████         ███████ ██  █  ██ ███████ ██████  "
-	@sleep 0.1
-	@echo "██      ██    ██      ██ ██   ██              ██ ██ ███ ██ ██   ██ ██      "
-	@sleep 0.1
-	@echo "██       ██████  ███████ ██   ██ ███████ ███████  ███ ███  ██   ██ ██      "
-	@sleep 0.1
 	$(call success, "Build complete: $(NAME) 📚 ✨")       
 
-%.o: %.c 
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c 
+	mkdir -p $(OBJ_DIR)
 	$(call warn, "Compiling [...] $<")
-	@sleep 0.2
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 
@@ -83,8 +73,8 @@ $(NAME): $(OBJ_DIR)
 #------------------------------------------------------------------------------#
 
 $(LIBFT_LIB) : $(LIBFT_DIR)
-	echo "$(YELLOW)[!] $(RESET)COMPILING LIBFT"
-	make -C $(LIBFT_DIR)/ft_printf
+	$(call text, "COMPILING LIBFT")
+	make -C $(LIBFT_DIR)
 
 #------------------------------------------------------------------------------#
 #								CLEAN-UP RULES 		  						   #
@@ -92,7 +82,9 @@ $(LIBFT_LIB) : $(LIBFT_DIR)
 #	clean the .o objects
 clean:
 	$(call text, "Removing object files [...]")
-	@$(RM) $(OBJ_DIR)
+	@$(RM) $(OBJ)
+	$(call text, "Removing libft object folder [...]")
+	@rm -rf $(LIBFT_DIR)obj
 	$(call success, "Object files cleaned. 💣"); \
 
 # clean the .o objects, the objs folder and the project file
@@ -114,16 +106,16 @@ re: fclean all
 #	Run norminette on all files
 norm: $(TEMP_PATH)		
 # print the directory name
-	@printf "${_NORM}: $(YELLOW)$(SRC_PDIR)$(RESET)\n"
+	@printf "${_NORM}: $(YELLOW)$(SRC)$(RESET)\n"
 # list all files in the directory
-	@ls $(SRC_DIR) | wc -l > $(TEMP_PATH)/norm_ls.txt
+	@ls $(SRC) | wc -l > $(TEMP_PATH)/norm_ls.txt
 # print the number of files
 	@printf "$(_NORM_INFO) $$(cat $(TEMP_PATH)/norm_ls.txt)\n"
 # run norminette on all files
 	@printf "$(_NORM_SUCCESS) "
 # count the number of "OK" in the output
 # if the output is empty, print "0"
-	@norminette $(SRC_DIR) | grep -wc "OK" > $(TEMP_PATH)/norm.txt; \
+	@norminette $(SRC) | grep -wc "OK" > $(TEMP_PATH)/norm.txt; \
 	if [ $$? -eq 1 ]; then \
 		echo "0" > $(TEMP_PATH)/norm.txt; \
 	fi
@@ -131,7 +123,7 @@ norm: $(TEMP_PATH)
 # if the output is not empty, print the errors
 	@if ! diff -q $(TEMP_PATH)/norm_ls.txt $(TEMP_PATH)/norm.txt > /dev/null; then \
 		printf "$(_NORM_ERR) "; \
-		norminette $(SRC_DIR) | grep -v "OK"> $(TEMP_PATH)/norm_err.txt; \
+		norminette $(SRC) | grep -v "OK"> $(TEMP_PATH)/norm_err.txt; \
 		cat $(TEMP_PATH)/norm_err.txt | grep -wc "Error:" > $(TEMP_PATH)/norm_errn.txt; \
 		printf "$$(cat $(TEMP_PATH)/norm_errn.txt)\n"; \
 		printf "$$(cat $(TEMP_PATH)/norm_err.txt)\n"; \
@@ -153,7 +145,7 @@ gdb:
 #________		VALGRIND			___________________________________________#
 #	rule to valgrind
 valgrind: $(NAME)
-	$(CC) $(CFLAGS) $(OBJ_DIR) $(LIBFTLIB) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFTLIB) -o $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) $(INPUT)
 	make clean
 	./push_swap $(INPUT)
