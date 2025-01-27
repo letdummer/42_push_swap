@@ -14,14 +14,22 @@ NAME= push_swap
 #									FILES  				     				   #
 #------------------------------------------------------------------------------#
 
-OBJ_DIR		= obj/
-OBJ			= $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+SRC_DIR		= src
+OBJ_DIR		= obj
 
-SRC_DIR		= src/
-#SRC = [list the ".c" files]
-SRC			= $(addprefix $(SRC_DIR)/, *.c ) #edit with all .c names
+#SRC_FILES = [list the ".c" files]
+SRC_FILES			= ft_errors.c	\
+	ft_op_push.c \
+	ft_op_rev_rotate.c \
+	ft_op_rotate.c \
+	ft_op_swap.c \
+	push_swap_utils.c \
+	push_swap.c
 
-LIBFT_DIR	= libft/
+SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
+OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
+
+LIBFT_DIR	= libft
 LIBFT_LIB	= /libft/libft.a
 
 INPUT = 1 3 5 -10 -50 87 6
@@ -32,7 +40,7 @@ INPUT = 1 3 5 -10 -50 87 6
 TEMP_PATH	= .temp
 
 $(TEMP_PATH):
-	mkdir -p $(TEMP_PATH)
+	@mkdir -p $(TEMP_PATH)
 	@echo "* $(YELLOW)Creating $(TEMP_PATH) folder:$(RESET) $(_SUCCESS)"
 
 _SEP 			= =====================
@@ -62,8 +70,8 @@ $(NAME): $(LIBFT_LIB) $(OBJ)
 	$(call text, "Creating library $(NAME) [...]")
 	$(call success, "Build complete: $(NAME) 📚 ✨")       
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c 
-	mkdir -p $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)
 	$(call warn, "Compiling [...] $<")
 	@$(CC) $(CFLAGS) -c $< -o $@
 
@@ -74,7 +82,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 $(LIBFT_LIB) : $(LIBFT_DIR)
 	$(call text, "COMPILING LIBFT")
-	make -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR)
 
 #------------------------------------------------------------------------------#
 #								CLEAN-UP RULES 		  						   #
@@ -84,14 +92,15 @@ clean:
 	$(call text, "Removing object files [...]")
 	@$(RM) $(OBJ)
 	$(call text, "Removing libft object folder [...]")
-	@rm -rf $(LIBFT_DIR)obj
-	$(call success, "Object files cleaned. 💣"); \
+	@make clean -C $(LIBFT_DIR)
+	$(call success, "		Object files cleaned. 💣"); \
 
 # clean the .o objects, the objs folder and the project file
 fclean: clean
-	$(call text, "Removing library file...")
+	$(call text, "Removing files [...]")
 	@$(RM) $(NAME)
-	$(call success, "Library file cleaned. 💥")
+	@make fclean -C $(LIBFT_DIR)
+	$(call highligth, "FULL CLEANING DONE! ✅")
 
 #	refresh the project
 re: fclean all
@@ -106,16 +115,16 @@ re: fclean all
 #	Run norminette on all files
 norm: $(TEMP_PATH)		
 # print the directory name
-	@printf "${_NORM}: $(YELLOW)$(SRC)$(RESET)\n"
+	@printf "${_NORM}: $(YELLOW)$(SRC_FILES)$(RESET)\n"
 # list all files in the directory
-	@ls $(SRC) | wc -l > $(TEMP_PATH)/norm_ls.txt
+	@ls $(SRC_FILES) | wc -l > $(TEMP_PATH)/norm_ls.txt
 # print the number of files
 	@printf "$(_NORM_INFO) $$(cat $(TEMP_PATH)/norm_ls.txt)\n"
 # run norminette on all files
 	@printf "$(_NORM_SUCCESS) "
 # count the number of "OK" in the output
 # if the output is empty, print "0"
-	@norminette $(SRC) | grep -wc "OK" > $(TEMP_PATH)/norm.txt; \
+	@norminette $(SRC_FILES) | grep -wc "OK" > $(TEMP_PATH)/norm.txt; \
 	if [ $$? -eq 1 ]; then \
 		echo "0" > $(TEMP_PATH)/norm.txt; \
 	fi
@@ -123,7 +132,7 @@ norm: $(TEMP_PATH)
 # if the output is not empty, print the errors
 	@if ! diff -q $(TEMP_PATH)/norm_ls.txt $(TEMP_PATH)/norm.txt > /dev/null; then \
 		printf "$(_NORM_ERR) "; \
-		norminette $(SRC) | grep -v "OK"> $(TEMP_PATH)/norm_err.txt; \
+		norminette $(SRC_FILES) | grep -v "OK"> $(TEMP_PATH)/norm_err.txt; \
 		cat $(TEMP_PATH)/norm_err.txt | grep -wc "Error:" > $(TEMP_PATH)/norm_errn.txt; \
 		printf "$$(cat $(TEMP_PATH)/norm_errn.txt)\n"; \
 		printf "$$(cat $(TEMP_PATH)/norm_err.txt)\n"; \
@@ -191,8 +200,8 @@ RED_BOLD	  := $(shell echo "\033[1;31m")
 GREEN_BOLD	:= $(shell echo "\033[1;32m")
 PURPLE  := $(shell echo "\033[0;35m")
 BLUE	 := $(shell echo "\033[0;34m")
-CYAN	:= $(shell echo "\e[0;36m")
-CYAN_BOLD	:= $(shell echo "\e[1;36m")
+CYAN	:= $(shell echo "\033[0;36m")
+CYAN_BOLD	:= $(shell echo "\033[1;36m")
 RESET	:= $(shell echo "\033[0m")
 
 #________		FUNCTIONS TO PRINT COLORS______________________________________#

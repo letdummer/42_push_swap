@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:31:39 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/01/22 20:22:40 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:25:37 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	swap(t_stack **stack)
 	t_stack *first;
 	t_stack *second;
 	
-	if (!stack || !*stack || !(*stack)->next)
-		return (1);
+	//if (!stack || !*stack || !(*stack)->next)
+		//return (1);
 	first = *stack;
 	second = first->next;
 
