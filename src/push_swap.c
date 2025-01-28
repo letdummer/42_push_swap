@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:34:27 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/01/28 11:42:17 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:46:03 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ type ft_check_input()
 type ft_free_stack()
 {}
 */
-/* 
+
+
+//					MAIN					//
+
 int	main(int ac, char **av)
 {
 	t_stack *stack_a;
@@ -33,9 +36,9 @@ int	main(int ac, char **av)
 		return(1);
 	// call split function to handle the string
 	else if (ac == 2)
-		av = ft_split(av[1], ' ');
+		av = ft_split_stack(av[1], ' ');
 	// iniciar stack_a
-	start_stack_a(&stack_a, av +1);
+	start_stack_a(&stack_a, av + 1);
 	// lidar com erros como overflow, duplicatas, syntax error, conter somente digitos, ou sinais como '-' ou '+'
 	// se houverem erros, dar free na stack_a e chamar ft_error
 
@@ -79,8 +82,9 @@ int	main(int ac, char **av)
 
 
 
-//				tests			
-
+//					TESTS					//
+	
+/* 
 void print_stack(t_stack *stack)
 {
 	while (stack)
@@ -91,4 +95,4 @@ void print_stack(t_stack *stack)
 	}
 	printf("\n");
 }
-*/
+ */
