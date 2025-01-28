@@ -19,31 +19,22 @@ OBJ_DIR		= obj
 
 #SRC_FILES = [list the ".c" files]
 SRC_FILES			= ft_errors.c	\
-	ft_op_push.c \
-	ft_op_rev_rotate.c \
-	ft_op_rotate.c \
-	ft_op_swap.c \
-	push_swap_utils.c \
-	push_swap.c
+					ft_op_push.c \
+					ft_op_rev_rotate.c \
+					ft_op_rotate.c \
+					ft_op_swap.c \
+					push_swap_utils.c \
+					push_swap.c \
+					ft_free_stack.c
 
-SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
-OBJ = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
+SRC			= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
+OBJ			= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
 LIBFT_DIR	= libft
 LIBFT_LIB	= /libft/libft.a
 
-INPUT = 1 3 5 -10 -50 87 6
+INPUT		= 1 3 5 -10 -50 87 6
 
-#------------------------------------------------------------------------------#
-#				TEMPORARY FILE TO CHECK NORMINETTE   						   #
-#------------------------------------------------------------------------------#
-TEMP_PATH	= .temp
-
-$(TEMP_PATH):
-	@mkdir -p $(TEMP_PATH)
-	@echo "* $(YELLOW)Creating $(TEMP_PATH) folder:$(RESET) $(_SUCCESS)"
-
-_SEP 			= =====================
 
 #------------------------------------------------------------------------------#
 #								COMPILATION 		  						   #
@@ -109,6 +100,15 @@ re: fclean all
 #------------------------------------------------------------------------------#
 #								EXTRA		 		  						   #
 #------------------------------------------------------------------------------#
+#________ TEMPORARY FILE TO CHECK NORMINETTE __________________________________#
+
+TEMP_PATH	= .temp
+
+$(TEMP_PATH):
+	@mkdir -p $(TEMP_PATH)
+	@echo "* $(YELLOW)Creating $(TEMP_PATH) folder:$(RESET) $(_SUCCESS)"
+
+_SEP 			= =====================
 
 #________		NORMINETTE			___________________________________________#
 

@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:34:27 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/01/27 16:29:23 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:42:17 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ type ft_check_input()
 type ft_free_stack()
 {}
 */
-
+/* 
 int	main(int ac, char **av)
 {
 	t_stack *stack_a;
@@ -31,11 +31,11 @@ int	main(int ac, char **av)
 	stack_b = NULL;
 	if (ac == 1 || (ac == 2 && !av[1][0]))
 		return(1);
+	// call split function to handle the string
 	else if (ac == 2)
 		av = ft_split(av[1], ' ');
-	// call split function to handle the string
-
 	// iniciar stack_a
+	start_stack_a(&stack_a, av +1);
 	// lidar com erros como overflow, duplicatas, syntax error, conter somente digitos, ou sinais como '-' ou '+'
 	// se houverem erros, dar free na stack_a e chamar ft_error
 
@@ -51,12 +51,17 @@ int	main(int ac, char **av)
 				// implementar funcao para "ordenar tres"
 			// se tiver mais que 3 numeros
 				// implementar algoritmo Turk
-	
+	if (!stack_sorted(stack_a))
+	{
+
+		
+	}
 
 	// free stack_a
 	// free stack_b
+	
 	return (0);
-}
+} */
 
 /*
 	BASIC UTILS
@@ -71,11 +76,10 @@ int	main(int ac, char **av)
 
 
 
-*/
 
 
 
-/*				tests			*/
+//				tests			
 
 void print_stack(t_stack *stack)
 {
@@ -87,3 +91,4 @@ void print_stack(t_stack *stack)
 	}
 	printf("\n");
 }
+*/
