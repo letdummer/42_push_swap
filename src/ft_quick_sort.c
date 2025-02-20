@@ -1,42 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_op_rotate.c                                     :+:      :+:    :+:   */
+/*   ft_quick_sort.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/22 20:06:43 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/19 15:29:05 by ldummer-         ###   ########.fr       */
+/*   Created: 2025/02/18 15:42:30 by ldummer-          #+#    #+#             */
+/*   Updated: 2025/02/19 16:32:23 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_rotate(t_stack **stack)
+void ft_quick_sort(t_stack **a)
 {
-	t_stack	*top;
-
-	if (!stack || !*stack || !(*stack)->next)
-		return ;
-	top = remove_top(stack);
-	add_at_last(stack, top);
+	(void)a;
+	write(1,"quick_sort\n",1);
 }
 
-void	ft_ra(t_stack **stack_a)
+void	ft_radix(t_stack *a, t_stack *b)
 {
-	ft_printf("ra\n");
-	ft_rotate(stack_a);
-}
-
-void	ft_rb(t_stack **stack_b)
-{
-	ft_printf("rb\n");
-	ft_rotate(stack_b);
-}
-
-void	ft_rr(t_stack **stack_a, t_stack **stack_b)
-{
-	ft_printf("rr\n");
-	ft_rotate(stack_a);
-	ft_rotate(stack_b);
+	(void)a;
+	(void)b;
+	write(1,"radix\n",1);
 }

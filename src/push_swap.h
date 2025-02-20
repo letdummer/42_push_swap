@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:13:20 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/01/28 11:42:34 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:45:07 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ typedef struct s_stack
 /*  						 FUNCTIONS	                                      */
 /* ************************************************************************** */
 
-//int		main(int ac, char **av);
+int		main(int ac, char **av);
 
 // handle errors
 //void	ft_error(t_stack *stack, int ac, char **av);
 
 // stack initialization
-char	**split(char *str, char c);
+char	**split_stack(char *str, char c);
 
 
 

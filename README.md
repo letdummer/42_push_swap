@@ -1,4 +1,6 @@
-<!--               -------- INTRODUCTION                -------->
+<!---------
+
+<!--               -------- INTRODUCTION               
 ## 📝 INTRODUCTION
 
 + **OBJECTIVE**
@@ -21,8 +23,8 @@
 Check the complete [SUBJECT](https://github.com/letdummer/42_ft_printf/blob/main/subject/en.subject.pdf) (version 10 - nov/2024).
 
 
-<!--               -------- !end! INTRODUCTION                --------> 
-<!--               -------- SUMMARY OF STEPS                -------->
+<!--               -------- !end! INTRODUCTION                 
+<!--               -------- SUMMARY OF STEPS                
 
 <details open>
 <summary>
@@ -35,21 +37,21 @@ Check the complete [SUBJECT](https://github.com/letdummer/42_ft_printf/blob/main
 
 </details>
 
-<!--               -------- !end! SUMMARY OF STEPS                -------->
-<!--               -------- REFERENCES                -------->
+<!--               -------- !end! SUMMARY OF STEPS               
+<!--               -------- REFERENCES                
 
 ## 🔎 References
 
 - [Beauty name for the link](#name_of_summary)<br>
 
 
-<!--               -------- !end! REFERENCES                -------->
+<!--               -------- !end! REFERENCES               
 
 
 
 
 
-
+-------->
 
 
 
