@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:32:44 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/01/28 16:34:37 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:45:59 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,42 +71,45 @@ char	**split_stack(char *str, char c)
 
 	if (!str)
 		return (NULL);
-	i = 0;
 	word_count = count_word(str, c);
 	if (word_count == 0)
 		return (NULL);
 	result_array = malloc(sizeof(char *) * (word_count + 1));
 	if (!result_array)
 		return (NULL);
-	while (word_count-- > 0)
+	i = 0;
+	while (i < word_count)
 	{
-		result_array[i++] = get_next_word(str, c);
+		result_array[i] = get_next_word(str, c);
+		i++;
 	}
 	result_array[i] = NULL;
 	return (result_array);
 }
 
-/* int main(void)
+/*
+int main(int ac, char **av)
 {
-	char	*str = "testing the function 123";
-	char	delimiter = ' ';
-	char	**result;
-	int		i = 0;
+    t_stack *stack_a = NULL;
+    t_stack *stack_b = NULL;
 
-	result = split_stack(str, delimiter);
-	if (!result)
-	{
-		printf("Error\n");
-		return(1);
-	}
-	printf("Result:\n");
-	while(result[i])
-	{
-		printf("Palavra %d:	'%s'\n", i, result[i]);
-		free(result[i]);
-		i++;		
-	}
-	free(result);
+    if (ac < 2)
+        return (0);
+    
+    start_stack_a(&stack_a, av + 1);
 
-	return(0);
-} */
+    if (ft_is_sorted(stack_a))
+        return (0);
+
+    if (ft_size_list(stack_a) <= 3)
+        ft_sort_three(&stack_a);
+    else if (ft_size_list(stack_a) <= 5)
+        ft_sort_five(&stack_a, &stack_b);
+    else
+        ft_sort_large(&stack_a, &stack_b);
+
+    ft_free_stack(&stack_a);
+    ft_free_stack(&stack_b);
+    return (0);
+}
+*/

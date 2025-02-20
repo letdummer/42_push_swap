@@ -6,93 +6,81 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:34:27 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/01/28 16:46:03 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:45:09 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/*
-type ft_check_input()
-{}
-*/
-
-/*
-type ft_free_stack()
-{}
-*/
-
-
 //					MAIN					//
-
 int	main(int ac, char **av)
 {
-	t_stack *stack_a;
-	t_stack *stack_b;
-	
+	t_stack	*stack_a;
+	t_stack	*stack_b;
+
 	stack_a = NULL;
 	stack_b = NULL;
 	if (ac == 1 || (ac == 2 && !av[1][0]))
-		return(1);
-	// call split function to handle the string
-	else if (ac == 2)
-		av = ft_split_stack(av[1], ' ');
-	// iniciar stack_a
+		return (1);
+ 	// call split function to handle the string
+	//else if (ac == 2)
+	//	av = ft_split_stack(av[1], ' ');
+ 
 	start_stack_a(&stack_a, av + 1);
-	// lidar com erros como overflow, duplicatas, syntax error, conter somente digitos, ou sinais como '-' ou '+'
-	// se houverem erros, dar free na stack_a e chamar ft_error
-
-	// checar se casa input eh um long int
-		// se o input for uma string, converter para long int
-	// acrescentar o no na stack_a
-
-	// checar se a stack_a esta ordenada
-		// se nao estiver, chamar a funcao de ordenacao
-			// se tiver 2 numeros
-				// simplismente dar swap
-			// se tiver 3 numeros
-				// implementar funcao para "ordenar tres"
-			// se tiver mais que 3 numeros
-				// implementar algoritmo Turk
-	if (!stack_sorted(stack_a))
-	{
-
-		
-	}
-
-	// free stack_a
-	// free stack_b
+	ft_check_duplicates(&stack_a);
 	
+	if (ft_is_sorted(stack_a))
+		ft_free_stack(&stack_a);
+	ft_normalize(&stack_a);
+	ft_sort_stack(&stack_a, &stack_b);
+	ft_free_stack(&stack_a);
+	ft_free_stack(&stack_b);
 	return (0);
-} */
-
-/*
-	BASIC UTILS
-
-	* functions to handle errors
-	* functions for the operations
-	* stack length
-	* last node
-	* min and max nodes
-		
-
-
-
-
-
-
-
-//					TESTS					//
-	
-/* 
-void print_stack(t_stack *stack)
-{
-	while (stack)
-	{
-		printf("TEST\n");
-		printf("%d ", stack->nb);
-		stack = stack->next;
-	}
-	printf("\n");
 }
- */
+
+void	start_stack_a(t_stack **a, char **av)
+{
+	long	n;
+	int		i;
+
+	i = 0;
+	while (av[i])
+	{
+		//if (error_syntax(av[i]))
+		//	ft_error(a);
+		n = ft_atoi_ps(av[i], *a);
+		if (n > INT_MAX || n < INT_MIN)
+			ft_error(a);
+		//if (error_duplicate(*a, (int)n))
+		//	ft_error(a);
+		add_to_top(a, (int)n);
+		i++;
+	}
+}
+
+void	ft_sort_stack(t_stack **stack_a, t_stack **stack_b)
+{
+	int	size;
+
+	size = ft_size_list(*stack_a);
+	if (size == 2)
+		ft_sa(stack_a);
+	else if (size == 3)
+		ft_sort_three(stack_a);
+	else if (size == 4)
+	{
+		ft_pb(stack_a, stack_b);
+		ft_sort_three(stack_a);
+		ft_pa(stack_a, stack_b);
+	}
+	else if (size == 5)
+	{
+		ft_pb(stack_a, stack_b);
+		ft_pb(stack_a, stack_b);
+		ft_sort_three(stack_a);
+		ft_pa(stack_a, stack_b);
+		ft_pa(stack_a, stack_b);
+	}
+	/* else
+		ft_sort_large(stack_a, stack_b); */
+}
