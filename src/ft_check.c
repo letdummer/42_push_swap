@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 16:40:50 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/20 12:06:37 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/21 20:23:33 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,24 @@
 
 int	ft_is_sorted(t_stack *stack_a)
 {
-	t_stack	*node;
-
-	if (stack_a == NULL || stack_a->next == NULL)
+	if (!stack_a|| !stack_a->next)
 		return (1);
-	node = stack_a;
-	while (node->next != NULL)
+	while (stack_a && stack_a->next)
 	{
-		if (node->content > node->next->content)
+		if (stack_a->content > stack_a->next->content)
 			return (0);
-		node = node->next;
+		stack_a = stack_a->next;
 	}
 	return (1);
 }
 
-void ft_check_duplicates(t_stack **stack)
+int ft_check_duplicates(t_stack **stack)
 {
 	t_stack *current;
 	t_stack *checker;
 
 	if (!stack || !*stack)
-		return;
+		return (1);
 
 	current = *stack;
 	while (current)
@@ -45,27 +42,24 @@ void ft_check_duplicates(t_stack **stack)
 			if (current->content == checker->content)
 			{
 				ft_error(stack);
-				return;
+				return (1);
 			}
 			checker = checker->next;
 		}
 		current = current->next;
 	}
+	return(0);
 }
 
 
 int	ft_is_valid(t_stack *a, char *str)
 {
 	t_stack	*tmp;
-	int		n;
 
 	tmp = a;
-	while (tmp && tmp->prev)
-		tmp = tmp->prev;
-	n = ft_atoi_ps(str, a);
 	while (tmp)
 	{
-		if (tmp->content == n)
+		if (tmp->content == ft_atoi_ps(str))
 			return (0);
 		tmp = tmp->next;
 	}
@@ -87,30 +81,30 @@ int	ft_size_list(t_stack *stack_a)
 	return (i);
 }
 
-int	ft_atoi_ps(const char *str, t_stack *stack_a)
+int	ft_atoi_ps(const char *str)
 {
-	long long int	res;
-	int				signal;
+	long int	nb;
+	int			signal;
+	int			i;
 
 	signal = 1;
-	res = 0;
-	while (*str == '\t' || *str == ' ' || *str == '\n'
-		|| *str == '\v' || *str == '\f' || *str == '\r')
-		str++;
-	if (*str == '-')
-		signal *= -1;
-	if (*str == '+' || *str == '-')
-		str++;
-	if (!*str)
-		ft_error(&stack_a);
-	while (*str)
+	nb = 0;
+	i = 0;
+	while (str[i] == '\t' || str[i] == ' ' || str[i] == '\n'
+		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
 	{
-		if (!ft_isdigit(*str))
-			ft_error(&stack_a);
-		res = (res * 10) + (*str - 48);
-		str++;
+		if (str[i] == '-')
+			signal = -1;
+		i++;
 	}
-	if (((signal * res) > 2147483647) || ((signal * res) < -2147483648))
-		ft_error(&stack_a);
-	return (signal * res);
+//	printf("CONVERTENDO: %s\n", str);  // DEBUG
+
+	while (ft_isdigit(str[i]))
+	{
+		nb = (nb * 10) + (str[i] - '0');
+		i++;
+	}
+	return (signal * nb);
 }

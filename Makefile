@@ -18,22 +18,26 @@ SRC_DIR		= src
 OBJ_DIR		= obj
 
 #SRC_FILES = [list the ".c" files]
-SRC_FILES			= ft_errors.c	\
-					ft_op_push.c \
-					ft_op_rev_rotate.c \
-					ft_op_rotate.c \
-					ft_op_swap.c \
-					push_swap_utils.c \
-					push_swap.c \
-					ft_free_stack.c
+SRC_FILES			= ft_check.c 	\
+					ft_free_error.c		\
+					ft_lists_utils.c	\
+					ft_norm_index.c		\
+					ft_op_push.c 		\
+					ft_op_rev_rotate.c 	\
+					ft_op_rotate.c 		\
+					ft_op_swap.c 		\
+					ft_sort.c			\
+					ft_split_stack.c	\
+					push_swap.c 		\
+				#	ft_quick_sort.c		\
 
 SRC			= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ			= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
 LIBFT_DIR	= libft
-LIBFT_LIB	= /libft/libft.a
+LIBFT_LIB	= $(LIBFT_DIR)/libft.a
 
-INPUT		= 1 3 5 -10 -50 87 6
+#INPUT		= 1 3 5 -10 -50 87 6
 
 
 #------------------------------------------------------------------------------#
@@ -41,8 +45,8 @@ INPUT		= 1 3 5 -10 -50 87 6
 #------------------------------------------------------------------------------#
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
-DFLAGS	= -g
+CFLAGS	= -Wall -Wextra -Werror -g
+#DFLAGS	= -g
 
 #------------------------------------------------------------------------------#
 #								COMMANDS    		  						   #
@@ -56,9 +60,10 @@ RM= rm -f
 
 all: $(NAME)
 
-$(NAME): $(LIBFT_LIB) $(OBJ)
+$(NAME): $(OBJ) $(LIBFT_LIB)
 	$(call success, "All files have been compiled ✅")
 	$(call text, "Creating library $(NAME) [...]")
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) -o $(NAME)
 	$(call success, "Build complete: $(NAME) 📚 ✨")       
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
