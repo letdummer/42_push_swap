@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 16:40:50 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/21 15:33:53 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/21 20:23:33 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	ft_is_sorted(t_stack *stack_a)
 {
 	if (!stack_a|| !stack_a->next)
-	return (1);
-	while (stack_a->next)
+		return (1);
+	while (stack_a && stack_a->next)
 	{
 		if (stack_a->content > stack_a->next->content)
 			return (0);
@@ -55,17 +55,11 @@ int ft_check_duplicates(t_stack **stack)
 int	ft_is_valid(t_stack *a, char *str)
 {
 	t_stack	*tmp;
-	int		n;
 
-	if (!str || !*str)
-		return 0;
-	n = ft_atoi_ps(str);
-	if (n == INT_MIN || n == INT_MAX)
-		return 0;
 	tmp = a;
 	while (tmp)
 	{
-		if (tmp->content == n)
+		if (tmp->content == ft_atoi_ps(str))
 			return (0);
 		tmp = tmp->next;
 	}
@@ -105,6 +99,8 @@ int	ft_atoi_ps(const char *str)
 			signal = -1;
 		i++;
 	}
+//	printf("CONVERTENDO: %s\n", str);  // DEBUG
+
 	while (ft_isdigit(str[i]))
 	{
 		nb = (nb * 10) + (str[i] - '0');

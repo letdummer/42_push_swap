@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:47:55 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/20 15:23:38 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/21 20:50:12 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	add_at_last(t_stack **stack, int value)
 	new_node = create_node(value);
 	if (!new_node)
 		return;
-	new_node->content = value;
 	new_node->next = NULL;
 	if (*stack == NULL)
 	{
@@ -56,6 +55,7 @@ void	add_at_last(t_stack **stack, int value)
 	while (temp->next != NULL)
 		temp = temp->next;
 	temp->next = new_node;
+	new_node->prev = temp;
 }
 
 
