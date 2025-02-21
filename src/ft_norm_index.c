@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:48:30 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/20 14:45:32 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/21 15:28:32 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	ft_normalize(t_stack **stack)
 		return ;
 	sorted_stack = NULL;
 	current = *stack;
+	if (ft_is_sorted(*stack) || (ft_size_list(*stack) < 5))
+		return ;
 	while (current)
 	{
 		add_to_top(&sorted_stack, current->content);

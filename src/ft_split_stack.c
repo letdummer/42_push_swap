@@ -6,35 +6,29 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:32:44 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/18 15:45:59 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:24:42 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 static char	*get_next_word(char *str, char c);
 static int	count_word(char *str, char c);
 
 static int	count_word(char *str, char c)
 {
-	int		word;
-	bool	in_word;
+	size_t	word;
 
 	word = 0;
 	while (*str)
 	{
-		in_word = false;
 		while (*str == c)
 			++str;
-		while (*str != c && *str)
+		if (*str != c && *str)
 		{
-			if (!in_word)
-			{
-				++word;
-				in_word = true;
-			}
-			++str;
+			++word;
+			while (*str != c && *str)
+				++str;
 		}
 	}
 	return (word);
@@ -62,6 +56,7 @@ static char	*get_next_word(char *str, char c)
 	next_word[i] = '\0';
 	return (next_word);
 }
+
 
 char	**split_stack(char *str, char c)
 {
