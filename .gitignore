@@ -5,10 +5,13 @@
 a.out
 *.o
 
+42Barcelona-PushSwap-ProChecker/
+push_swap_tester/
 
 
-
-*checker_*
+*hecker*
+*obj*
+*.a
 
 #to submit
 #*.md

@@ -37,6 +37,9 @@ OBJ			= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 LIBFT_DIR	= libft
 LIBFT_LIB	= $(LIBFT_DIR)/libft.a
 
+FT_PRINTF_DIR	= ft_printf
+FT_PRINTF_LIB	= $(FT_PRINTF_DIR)/libftprintf.a
+
 #INPUT		= 1 3 5 -10 -50 87 6
 
 
@@ -58,27 +61,49 @@ RM= rm -f
 #								BASE		 		  						   #
 #------------------------------------------------------------------------------#
 
-all: $(NAME)
+all: deps $(NAME)
 
-$(NAME): $(OBJ) $(LIBFT_LIB)
+$(NAME): $(OBJ) $(LIBFT_LIB) $(FT_PRINTF_LIB)
 	$(call success, "All files have been compiled ✅")
 	$(call text, "Creating library $(NAME) [...]")
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) $(FT_PRINTF_LIB) -o $(NAME)
 	$(call success, "Build complete: $(NAME) 📚 ✨")       
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c 
 	@mkdir -p $(OBJ_DIR)
 	$(call warn, "Compiling [...] $<")
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-
-#------------------------------------------------------------------------------#
-#						CREATE FILE TO LIBFT 		  						   #
-#------------------------------------------------------------------------------#
-
 $(LIBFT_LIB) : $(LIBFT_DIR)
 	$(call text, "COMPILING LIBFT")
 	@make -C $(LIBFT_DIR)
+
+$(FT_PRINTF_LIB) : $(FT_PRINTF_DIR)
+	$(call text, "COMPILING FT_PRINTF")
+	@make -C $(FT_PRINTF_DIR)
+
+deps: get_libft get_ft_printf
+	@echo "[$(GREEN_BOLD)Nothing to be done!$(RESET)]"
+
+get_libft:
+	@if [ -d "$(LIBFT_DIR)" ]; then \
+		echo "[libft] folder found 🖔"; \
+	else \
+		echo "Getting Libft"; \
+		git clone --depth 1 https://github.com/letdummer/42_libft.git $(LIBFT_DIR); \
+		cp $(LIBFT_DIR)/libft/* $(LIBFT_DIR)/; \
+		rm -rf $(LIBFT_DIR)/libft; \
+		echo "Done downloading Libft"; \
+	fi
+
+get_ft_printf:
+	@if [ -d "$(FT_PRINTF_DIR)" ]; then \
+		echo "[ft_printf] folder found 🖔"; \
+	else \
+		echo "Getting ft_printf"; \
+		git clone https://github.com/letdummer/42_printf.git $(FT_PRINTF_DIR); \
+		echo "Done downloading ft_printf"; \
+	fi
 
 #------------------------------------------------------------------------------#
 #								CLEAN-UP RULES 		  						   #
@@ -88,15 +113,18 @@ clean:
 	$(call text, "Removing object files [...]")
 	@$(RM) $(OBJ)
 	$(call text, "Removing libft object folder [...]")
-	@make clean -C $(LIBFT_DIR)
+	@if [ -f "$(LIBFT_DIR)/Makefile" ]; then make -C $(LIBFT_DIR) clean; fi
+	$(call text, "Removing ft_printf object folder [...]")
+	@make -C $(FT_PRINTF_DIR) clean
 	$(call success, "		Object files cleaned. 💣"); \
 
 # clean the .o objects, the objs folder and the project file
 fclean: clean
 	$(call text, "Removing files [...]")
 	@$(RM) $(NAME)
-	@make fclean -C $(LIBFT_DIR)
-	$(call highligth, "FULL CLEANING DONE! ✅")
+	@if [ -f "$(LIBFT_DIR)/Makefile" ]; then make -C $(LIBFT_DIR) fclean; fi
+	@make -C $(FT_PRINTF_DIR) fclean
+	$(call highligth_bold, "FULL CLEANING DONE! ✅")
 
 #	refresh the project
 re: fclean all
@@ -220,4 +248,4 @@ highligth_bold = @echo "$(CYAN_BOLD)$(1)$(RESET)"
 
 
 #______________________________________________________________________________#
-.PHONY: all clean fclean re help manual norm valgrind gdb
+.PHONY: all clean fclean re help manual norm valgrind gdb deps
