@@ -34,7 +34,7 @@ SRC_FILES			= ft_check.c 	\
 SRC			= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ			= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
-LIBFT_DIR	= libft/libft
+LIBFT_DIR	= libft
 LIBFT_LIB	= $(LIBFT_DIR)/libft.a
 
 FT_PRINTF_DIR	= ft_printf
@@ -90,7 +90,9 @@ get_libft:
 		echo "[libft] folder found 🖔"; \
 	else \
 		echo "Getting Libft"; \
-		git clone https://github.com/letdummer/42_libft.git $(LIBFT_DIR); \
+		git clone --depth 1 https://github.com/letdummer/42_libft.git $(LIBFT_DIR); \
+		cp $(LIBFT_DIR)/libft/* $(LIBFT_DIR)/; \
+		rm -rf $(LIBFT_DIR)/libft; \
 		echo "Done downloading Libft"; \
 	fi
 
