@@ -49,7 +49,7 @@ FT_PRINTF_LIB	= $(FT_PRINTF_DIR)/libftprintf.a
 
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -g
-#DFLAGS	= -g
+DFLAGS	= -g
 
 #------------------------------------------------------------------------------#
 #								COMMANDS    		  						   #
@@ -66,7 +66,7 @@ all: deps $(NAME)
 $(NAME): $(OBJ) $(LIBFT_LIB) $(FT_PRINTF_LIB)
 	$(call success, "All files have been compiled ✅")
 	$(call text, "Creating library $(NAME) [...]")
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) $(FT_PRINTF_LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(DFLAGS) $(OBJ) $(LIBFT_LIB) $(FT_PRINTF_LIB) -o $(NAME)
 	$(call success, "Build complete: $(NAME) 📚 ✨")       
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c 
