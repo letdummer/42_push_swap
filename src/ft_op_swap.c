@@ -6,14 +6,12 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:31:39 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/19 15:24:57 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/23 13:59:24 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//		SWAP
-// swap the two firsts elements of a stack
 void	ft_swap(t_stack **stack)
 {
 	t_stack	*first;

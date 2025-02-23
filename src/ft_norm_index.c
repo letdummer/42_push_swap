@@ -6,13 +6,13 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:48:30 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/21 15:28:32 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/23 21:36:30 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_find_index(t_stack *sorted_stack, int value)
+/* int	ft_find_index(t_stack *sorted_stack, int value)
 {
 	int	index;
 
@@ -25,30 +25,28 @@ int	ft_find_index(t_stack *sorted_stack, int value)
 		sorted_stack = sorted_stack->next;
 	}
 	return (-1);
-}
+} */
 
-void	ft_normalize(t_stack **stack)
+void ft_normalize(t_stack **stack)
 {
-	t_stack	*current;
-	t_stack	*sorted_stack;
+	t_stack *current;
+	t_stack *temp;
+	int i;
 
-	if (!stack || !*stack)
-		return ;
-	sorted_stack = NULL;
-	current = *stack;
-	if (ft_is_sorted(*stack) || (ft_size_list(*stack) < 5))
-		return ;
-	while (current)
-	{
-		add_to_top(&sorted_stack, current->content);
-		current = current->next;
-	}
-	//ft_quick_sort(&sorted_stack);
 	current = *stack;
 	while (current)
 	{
-		current->content = ft_find_index(sorted_stack, current->content);
+		i = 0;
+		temp = *stack;
+		while (temp)
+		{
+			if (current->content > temp->content)
+				i++;
+			temp = temp->next;
+			if (current == *stack)
+				break;
+		}
+		current->index = i;
 		current = current->next;
 	}
-	ft_free_stack(&sorted_stack);
 }

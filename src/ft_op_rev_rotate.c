@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 20:12:53 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/19 15:25:14 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/23 22:21:24 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,9 @@ void	ft_rev_rotate(t_stack **stack)
 {
 	t_stack	*last;
 
-	if (!stack || !(*stack) || !(*stack)->next)
+	if (!stack || !(*stack) || (*stack)->next == *stack)
 		return ;
-	last = remove_last(stack);
-	if (!last)
-		return ;
-	last->next = *stack;
-	*stack = last;
+	*stack = (*stack)->prev;
 }
 
 void	ft_rra(t_stack **stack_a)

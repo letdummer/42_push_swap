@@ -6,17 +6,20 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 16:40:50 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/21 20:23:33 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/23 22:07:09 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 int	ft_is_sorted(t_stack *stack_a)
-{
-	if (!stack_a|| !stack_a->next)
+{ 
+	t_stack	*first;
+	
+	if (!stack_a)
 		return (1);
-	while (stack_a && stack_a->next)
+	first = stack_a;
+	while (stack_a->next != first)
 	{
 		if (stack_a->content > stack_a->next->content)
 			return (0);
@@ -34,15 +37,15 @@ int ft_check_duplicates(t_stack **stack)
 		return (1);
 
 	current = *stack;
-	while (current)
+	while (current->next != *stack)
 	{
 		checker = current->next;
-		while (checker)
+		while (checker->next != *stack)
 		{
 			if (current->content == checker->content)
 			{
 				ft_error(stack);
-				return (1);
+				exit (1);
 			}
 			checker = checker->next;
 		}
@@ -51,8 +54,24 @@ int ft_check_duplicates(t_stack **stack)
 	return(0);
 }
 
+int	ft_is_valid(t_stack **a, char *str)
+{
+	int i;
 
-int	ft_is_valid(t_stack *a, char *str)
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (!str[i])
+		return((ft_error(a)), 0);
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return((ft_error(a)), 0);
+		i++;
+	}
+	return(1);	
+}
+/* int	ft_is_valid(t_stack *a, char *str)
 {
 	t_stack	*tmp;
 
@@ -64,7 +83,7 @@ int	ft_is_valid(t_stack *a, char *str)
 		tmp = tmp->next;
 	}
 	return (1);
-}
+} */
 
 int	ft_size_list(t_stack *stack_a)
 {
@@ -72,13 +91,15 @@ int	ft_size_list(t_stack *stack_a)
 	t_stack	*node;
 
 	i = 0;
+	if (!stack_a)
+		return (0);
 	node = stack_a;
-	while (node != NULL)
+	while (node->next != stack_a)
 	{
 		i++;
 		node = node->next;
 	}
-	return (i);
+	return (i + 1);
 }
 
 int	ft_atoi_ps(const char *str)
@@ -100,11 +121,12 @@ int	ft_atoi_ps(const char *str)
 		i++;
 	}
 //	printf("CONVERTENDO: %s\n", str);  // DEBUG
-
 	while (ft_isdigit(str[i]))
 	{
 		nb = (nb * 10) + (str[i] - '0');
 		i++;
 	}
+	if ((nb * signal) > 2147483647 || (nb * signal) < -2147483648)
+		ft_error(NULL);
 	return (signal * nb);
 }

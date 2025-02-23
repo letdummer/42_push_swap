@@ -87,7 +87,7 @@ deps: get_libft get_ft_printf
 
 get_libft:
 	@if [ -d "$(LIBFT_DIR)" ]; then \
-		echo "[libft] folder found 🖔"; \
+		echo "[libft] folder found"; \
 	else \
 		echo "Getting Libft"; \
 		git clone --depth 1 https://github.com/letdummer/42_libft.git $(LIBFT_DIR); \
@@ -98,7 +98,7 @@ get_libft:
 
 get_ft_printf:
 	@if [ -d "$(FT_PRINTF_DIR)" ]; then \
-		echo "[ft_printf] folder found 🖔"; \
+		echo "[ft_printf] folder found"; \
 	else \
 		echo "Getting ft_printf"; \
 		git clone https://github.com/letdummer/42_printf.git $(FT_PRINTF_DIR); \

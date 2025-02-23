@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:32:44 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/20 18:24:42 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:07:30 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,30 @@
 
 static char	*get_next_word(char *str, char c);
 static int	count_word(char *str, char c);
+
+char	**split_stack(char *str, char c)
+{
+	int		word_count;
+	char	**result_array;
+	int		i;
+
+	if (!str)
+		return (NULL);
+	word_count = count_word(str, c);
+	if (word_count == 0)
+		return (NULL);
+	result_array = malloc(sizeof(char *) * (word_count + 1));
+	if (!result_array)
+		return (NULL);
+	i = 0;
+	while (i < word_count)
+	{
+		result_array[i] = get_next_word(str, c);
+		i++;
+	}
+	result_array[i] = NULL;
+	return (result_array);
+}
 
 static int	count_word(char *str, char c)
 {
@@ -55,31 +79,6 @@ static char	*get_next_word(char *str, char c)
 		next_word[i++] = str[index++];
 	next_word[i] = '\0';
 	return (next_word);
-}
-
-
-char	**split_stack(char *str, char c)
-{
-	int		word_count;
-	char	**result_array;
-	int		i;
-
-	if (!str)
-		return (NULL);
-	word_count = count_word(str, c);
-	if (word_count == 0)
-		return (NULL);
-	result_array = malloc(sizeof(char *) * (word_count + 1));
-	if (!result_array)
-		return (NULL);
-	i = 0;
-	while (i < word_count)
-	{
-		result_array[i] = get_next_word(str, c);
-		i++;
-	}
-	result_array[i] = NULL;
-	return (result_array);
 }
 
 /*

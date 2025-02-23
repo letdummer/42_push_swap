@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 12:20:14 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/21 21:41:11 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/23 22:14:34 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void ft_sort_three(t_stack **a)
 	int second;
 	int third;
 
-
-	printf("SORT_THREE\n");
+	//printf("SORT_THREE\n");
 	while(!ft_is_sorted(*a))
 	{
 		first = (*a)->content;
@@ -41,7 +40,7 @@ void ft_sort_three(t_stack **a)
 		}
 		else if (first > second && second < third)
 			ft_ra(a);
-		ft_print_stack(*a);
+		//ft_print_stack(*a);
 	}
 	return ;
 }
@@ -50,46 +49,51 @@ void ft_sort_five(t_stack **a, t_stack **b)
 {
 	int min, second_min;
 
-	printf("SORT_FIVE\n");
+	//printf("SORT_FIVE\n");
 	min = ft_find_min(*a);
 	ft_move_to_top(a, min);
 	ft_pb(a, b);
-	ft_print_stacks(*a, *b);
+	//ft_print_stacks(*a, *b);
 	
 	second_min = ft_find_min(*a);
 	ft_move_to_top(a, second_min);
 	ft_pb(a, b);
-	ft_print_stacks(*a, *b);
+	//ft_print_stacks(*a, *b);
 	
 	ft_sort_three(a);
-	ft_print_stacks(*a, *b);
+	//ft_print_stacks(*a, *b);
 	
 	ft_pa(a, b);
-	ft_print_stacks(*a, *b);
+	//ft_print_stacks(*a, *b);
 	ft_pa(a, b);
-	ft_print_stacks(*a, *b);
+	//ft_print_stacks(*a, *b);
 	if (!ft_is_sorted(*a))
-    {
-        if ((*a)->content > (*a)->next->content)
-        {
-            ft_ra(a);
-            ft_print_stacks(*a, *b);
-        }
-    }
+	{
+		if ((*a)->content > (*a)->next->content)
+		{
+			ft_ra(a);
+		 //   ft_print_stacks(*a, *b);
+		}
+	}
 }
 
-
-int	ft_find_min(t_stack *stack)
+int ft_find_min(t_stack *stack)
 {
-	int	min;
+	int min;
+	t_stack *first;
 
+	if (!stack)
+		return (0);
+	first = stack;
 	min = stack->content;
-	while (stack)
+	while (stack->next != first)
 	{
 		if (stack->content < min)
 			min = stack->content;
 		stack = stack->next;
 	}
+	if (stack->content < min)
+		min = stack->content;
 	return (min);
 }
 
@@ -118,11 +122,28 @@ void ft_move_to_top(t_stack **a, int min)
 	}
 }
 
-
-/* void	ft_sort_large(t_stack **stack_a, t_stack **stack_b)
+void	ft_large_sort(t_stack **a, t_stack **b)
 {
-	if (ft_size_list(*stack_a) <= 100)
-		ft_quick_sort(stack_a);
-	else if (ft_size_list(*stack_a) > 100)
-		ft_radix(*stack_a, *stack_b);
-} */
+	int	size;
+
+	size = ft_size_list(*a);
+	while (size > 3)
+	{
+		ft_pb(a, b);
+		size--;
+	}
+	ft_sort_three(a);
+	while ((*b)->content)
+	{
+		
+		//printf("CONT A:\t%d\n", (*a)->content);
+		printf("CONT B:\t%d\n", (*b)->content);
+		ft_print_stacks(a, b);
+		if ((*a)->prev->content > (*a)->content && (*b)->content > (*a)->prev->content)
+			ft_pa(a, b);
+		else if ((*b)->content > (*a)->content)
+			ft_ra(a);
+		else if ((*b)->content < (*a)->content)
+			ft_pa(a, b);
+	}
+}
