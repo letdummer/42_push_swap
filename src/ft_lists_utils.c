@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:47:55 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/23 22:05:45 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/23 23:36:49 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_stack	*create_node(int value)
 		return (NULL);
 	new_node->content = value;
 	new_node->next = NULL;
+	new_node->prev = NULL;
 	return (new_node);
 }
 
@@ -37,15 +38,16 @@ void	add_to_top(t_stack **stack, int value)
 	{
 		new_node->next = new_node;
 		new_node->prev = new_node;
+		*stack = new_node;
 	}
 	else
 	{
 		new_node->next = *stack;
 		new_node->prev = (*stack)->prev;
-		(*stack)->prev = new_node;
 		(*stack)->prev->next = new_node;
+		(*stack)->prev = new_node;
+		*stack = new_node;
 	}
-	*stack = new_node;
 }
 
 // add a new node to the end of the stack
@@ -87,8 +89,8 @@ t_stack	*remove_top(t_stack **stack)
 		*stack = NULL;
 		return(top);
 	}
+	(*stack)->next->prev = (*stack)->prev;
 	(*stack)->prev->next = (*stack)->next;
-	(*stack)->prev->prev = (*stack)->prev;
 	*stack = (*stack)->next;
 	top->next = NULL;
 	top->prev = NULL;
@@ -96,7 +98,7 @@ t_stack	*remove_top(t_stack **stack)
 }
 
 // remove the last element of the stack and return it
-t_stack	*remove_last(t_stack **stack)
+/* t_stack	*remove_last(t_stack **stack)
 {
 	t_stack	*current;
 	t_stack	*last;
@@ -109,4 +111,4 @@ t_stack	*remove_last(t_stack **stack)
 	last = current->next;
 	current->next = NULL;
 	return (last);
-}
+} */

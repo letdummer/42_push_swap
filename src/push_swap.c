@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:34:27 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/23 21:37:28 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/24 10:23:26 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int ac, char **av)
 	}
 	stack_a = start_stack_a(stack_a, ac, av);
 	
-	ft_print_stack(&stack_a);					//DELETAR
+	//ft_print_stack(&stack_a);					//DELETAR
 	
 	if (!ft_is_sorted(stack_a))
 	{
@@ -43,7 +43,7 @@ int	main(int ac, char **av)
 		ft_sort_stack(&stack_a, &stack_b);
 	}
 	
-	ft_print_stack(&stack_a);					//DELETAR
+	//ft_print_stack(&stack_a);					//DELETAR
 	
 	ft_free_stack(&stack_a);
 	ft_free_stack(&stack_b);
@@ -165,7 +165,7 @@ void ft_print_stacks(t_stack **stack_a, t_stack **stack_b)
             break;
     }
 
-    printf("\nSTACK B:\t");
+	  printf("\nSTACK B:\t");
     while (current_b)
     {
         printf("%d ", current_b->content);

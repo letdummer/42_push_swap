@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 20:06:43 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/20 15:25:06 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/23 22:27:16 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,9 @@
 
 void	ft_rotate(t_stack **stack)
 {
-	t_stack	*top;
-
-	if (!stack || !*stack || !(*stack)->next)
+	if (!stack || !*stack || (*stack)->next == *stack)
 		return ;
-	top = remove_top(stack);
-	add_at_last(stack, top->content);
-	free(top);
+		*stack = (*stack)->next;
 }
 
 void	ft_ra(t_stack **stack_a)

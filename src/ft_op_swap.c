@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:31:39 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/23 13:59:24 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/23 23:32:22 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@ void	ft_swap(t_stack **stack)
 {
 	t_stack	*first;
 	t_stack	*second;
+	t_stack *last;
 
-	if (!stack || !*stack || !(*stack)->next)
+	if (!stack || !*stack || (*stack)->next == *stack)
 		return ;
 	first = *stack;
 	second = first->next;
+	last = first->prev;
 	first->next = second->next;
-	if (second->next)
-		second->next->prev = first;
-	second->next = first;
-	second->prev = NULL;
-	first->prev = second;
+    first->prev = second;
+    second->next = first;
+    second->prev = last;
+    last->next = second;
+    first->next->prev = first;
 	*stack = second;
 }
 

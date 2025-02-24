@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 12:20:14 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/23 22:14:34 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/24 10:28:45 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,17 +133,26 @@ void	ft_large_sort(t_stack **a, t_stack **b)
 		size--;
 	}
 	ft_sort_three(a);
-	while ((*b)->content)
+	while (*b)
 	{
 		
 		//printf("CONT A:\t%d\n", (*a)->content);
-		printf("CONT B:\t%d\n", (*b)->content);
-		ft_print_stacks(a, b);
-		if ((*a)->prev->content > (*a)->content && (*b)->content > (*a)->prev->content)
-			ft_pa(a, b);
-		else if ((*b)->content > (*a)->content)
-			ft_ra(a);
-		else if ((*b)->content < (*a)->content)
-			ft_pa(a, b);
+		//printf("CONT B:\t%d\n", (*b)->content);
+		//ft_print_stacks(a, b);
+		
+		if ((*b)->content < (*a)->content && (*b)->content > (*a)->prev->content)
+		ft_pa(a, b);
+		else if ((*b)->content > (*a)->content && (*b)->content > (*a)->prev->content && (*a)->content < (*a)->prev->content) // novo maximo em A
+		ft_pa(a, b);
+		else if ((*b)->content < (*a)->content && (*b)->content < (*a)->prev->content && (*a)->content < (*a)->prev->content) // novo maximo em A
+		ft_pa(a, b);
+		else 
+		ft_ra(a);
+	}
+	while ((*a)->content > (*a)->prev->content)
+	{
+		//printf("inside last loop\n");
+		//ft_print_stack(a);
+		ft_rra(a);
 	}
 }
