@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:13:20 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/24 18:41:04 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/24 22:04:59 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ void	ft_rrr(t_stack **stack_a, t_stack **stack_b);
 
 	// algorithms
 void	ft_large_sort(t_stack **a, t_stack **b);
-void	ft_calculate_mov(t_stack **stack);
+void	ft_calculate_mov_a(t_stack **stack, t_stack *stack_b);
+void	ft_calculate_mov_b(t_stack **stack);
 void	ft_sort_stack(t_stack **stack_a, t_stack **stack_b);
 void	ft_sort_three(t_stack **a);
 void	ft_sort_five(t_stack **a, t_stack **b);
@@ -111,7 +112,7 @@ void	ft_move_to_top(t_stack **a, int min);
 
 
 	// cost calculation functions
-void	ft_calculate_total_cost(t_stack **a, t_stack **b);
+/* void	ft_calculate_total_cost(t_stack **a, t_stack **b);
 t_stack	*ft_find_best_move(t_stack *b);
 void	ft_calculate_cost_a(t_stack **a, t_stack *b);
 int		ft_get_max_moves(int a, int b);
@@ -119,7 +120,7 @@ int		ft_get_min_position(t_stack *stack);
 
 int	ft_find_min(t_stack *stack);
 int	ft_find_max(t_stack *stack);
-
+ */
 
 void ft_print_stacks(t_stack **stack_a, t_stack **stack_b);		//DELETARRRR
 void ft_print_stack(t_stack **stack);							//DELETARRRR

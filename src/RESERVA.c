@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:42:30 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/24 18:43:39 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/24 20:23:27 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_large_sort(t_stack **a, t_stack **b)
 	ft_sort_three(a);
 /* 	while (*b)
 	{
-		ft_calculate_mov(b);
+		ft_calculate_mov_b(b);
 		
 		//printf("CONT A:\t%d\n", (*a)->content);
 		//printf("CONT B:\t%d\n", (*b)->content);
@@ -94,7 +94,7 @@ void	ft_large_sort(t_stack **a, t_stack **b)
 			ft_rra(a);
 }
 
-void	ft_calculate_mov(t_stack **stack)
+void	ft_calculate_mov_b(t_stack **stack)
 {
 	t_stack	*c;
 	int	i;
@@ -202,7 +202,7 @@ void ft_calculate_total_cost(t_stack **a, t_stack **b)
     t_stack *current;
     int ra, rb, rra, rrb;
 
-    ft_calculate_mov(b);
+    ft_calculate_mov_b(b);
     current = *b;
     
     while (current)

@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:42:30 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/24 19:35:33 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/24 23:54:08 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,37 +19,21 @@ void	ft_large_sort(t_stack **a, t_stack **b)
 	size = ft_size_list(*a);
 	while (size > 3)
 	{
-		ft_pb(a, b); // Move os elementos de A para B
+		ft_pb(a, b);
 		size--;
 	}
-
-	ft_sort_three(a); // Ordena os 3 elementos restantes em A
-
-	// Primeira etapa: Apenas calcular os movimentos necessários em B
-	t_stack *tmp = *b;
-	while (tmp)
+	ft_sort_three(a);
+	t_stack *current_b = *b;
+	while (current_b)
 	{
-		ft_calculate_mov(&tmp);
-		tmp = tmp->next;
-		if (tmp == *b)
-			break; // Evita loop infinito na pilha circular
+		ft_calculate_mov_b(&current_b);
+		ft_calculate_mov_a(a, current_b);
+		current_b = current_b->next;
+		if (current_b == *b)
+			break;
 	}
-
-	// Segunda etapa: Agora ordenar e mover os elementos de B para A
-	while (*b)
-	{
-		ft_calculate_mov(b);
-
-		// Determinar onde inserir em A e executar os movimentos
-		if ((*b)->content < (*a)->content && (*b)->content > (*a)->prev->content)
-			ft_pa(a, b);
-		else if ((*b)->content > (*a)->content && (*b)->content > (*a)->prev->content && (*a)->content < (*a)->prev->content) // Novo máximo em A
-			ft_pa(a, b);
-		else if ((*b)->content < (*a)->content && (*b)->content < (*a)->prev->content && (*a)->content < (*a)->prev->content) // Novo mínimo em A
-			ft_pa(a, b);
-		else 
-			ft_ra(a);
-	}
+	
+	
 
 	// Garantir que A fique alinhado corretamente
 	while ((*a)->content > (*a)->prev->content)
@@ -57,24 +41,102 @@ void	ft_large_sort(t_stack **a, t_stack **b)
 }
 
 
-void	ft_calculate_mov(t_stack **stack)
+void	ft_calculate_mov_b(t_stack **stack)
 {
-	t_stack	*c;
+	t_stack	*top;
 	int	i;
 	int	size;
 
-	c = *stack;
+	top = *stack;
 	i = 0;
 	size = ft_size_list(*stack);
-	while (c) 
+	while (top) 
 	{
-		if (i <= size / 2)
-			c->rb = i;
-		else
-			c->rrb = size - i;
+		if (i <= size / 2){
+			top->rb = i;
+		//	printf("RB: %d\n", i);
+		}
+		else{
+			top->rrb = size - i;
+		//printf("RRB: %d\n", size - i);
+		}
 		i++;
-		c = c->next;		
-		if (c == *stack)	// se chegar ao fim da lista circular, quebra o loop
+		top = top->next;		
+		if (top == *stack)	// se chegar ao fim da lista circular, quebra o loop
 			break ;
+	}
+}
+
+void	ft_calculate_mov_a(t_stack **stack_a, t_stack *current_b)
+{
+	t_stack	*a;
+	int		i;
+	int		size;
+	
+	i = 0;
+	a = *stack_a;
+	size = ft_size_list(*stack_a);
+	while(a)
+	{
+		if (ft_check_pa(*stack_a, current_b) == 1) 
+		{
+			current_b->ra = i;
+			current_b->rra = size - i;
+			if (current_b->ra > current_b->rra)
+				current_b->ra = 0;
+			else
+				current_b->rra = 0;
+			return;
+		}
+		a = a->next;
+		i++;
+		if (a == *stack_a)
+		{	printf("Nao foi encontrada posiaco para o numero: %d na stack A\n", current_b->content);
+			break ;}
+	}
+}
+
+int	ft_check_pa(t_stack *a, t_stack *b)
+{
+	if (b->content < a->content && b->content > a->prev->content)
+		return(1);
+	else if (b->content > a->content && b->content > a->prev->content && a->content < a->prev->content) // Novo máximo em A
+		return(1);
+	else if (b->content < a->content && b->content < a->prev->content && a->content < a->prev->content) // Novo mínimo em A
+		return(1);
+	else 
+		return(0);
+}
+
+t_stack *ft_get_min_mov(t_stack *b) // os asteriscos podem estar errados, verificar os apontadores ** ou *
+{
+	t_stack *current;// os asteriscos podem estar errados, verificar os apontadores ** ou *
+	t_stack *min;// os asteriscos podem estar errados, verificar os apontadores ** ou *
+	
+	current = b;
+	min = current;
+	while(current)
+	{
+		if (current->total_steps < min->total_steps )
+			min = current;
+		current = current->next;
+		if (current == b)
+			return(min);
+	}
+}
+
+
+// calculates total moviments (+1 is for ft_pa)
+void	ft_total_moves(t_stack *b)
+{
+	t_stack	*current;
+
+	current = b;
+	while (b)
+	{
+		current->total_steps = b->rb + b->rrb + b->ra + b->rra + 1;
+		current = current->next;
+		if (current == b)
+			break;
 	}
 }
