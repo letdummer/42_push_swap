@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:13:20 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/23 21:16:27 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/23 23:36:42 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ t_stack	*create_node(int value);
 void	add_to_top(t_stack **stack, int value);
 t_stack	*remove_top(t_stack **stack);
 int		ft_size_list(t_stack *stack_a);
-t_stack	*remove_last(t_stack **stack);
 void	add_at_last(t_stack **stack, int value);
+//t_stack	*remove_last(t_stack **stack);
 
 	// swap operations
 void	ft_swap(t_stack **stack);	
