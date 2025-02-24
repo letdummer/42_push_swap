@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:13:20 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/23 23:36:42 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:41:04 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,16 @@ typedef struct s_stack
 
 	struct s_stack	*next;
 	struct s_stack	*prev;
+	int				sb;
+	int				sa;
+	int				pa;
+	int				pb;
+	int				ra;
+	int				rb;
+	int				rra;
+	int				rrb;
+	int				total_steps;
+	int				move;
 }	t_stack;
 
 /* ************************************************************************** */
@@ -52,7 +62,7 @@ void	free_split(char **split);
 char	**split_stack(char *str, char c);
 t_stack	*start_stack_a(t_stack *a, int ac, char **av);
 
-	// check argsint	
+	// check args int	
 int		ft_is_sorted(t_stack *stack_a);
 int		ft_atoi_ps(const char *str);
 int		ft_is_valid(t_stack **a, char *str);
@@ -64,7 +74,6 @@ void	add_to_top(t_stack **stack, int value);
 t_stack	*remove_top(t_stack **stack);
 int		ft_size_list(t_stack *stack_a);
 void	add_at_last(t_stack **stack, int value);
-//t_stack	*remove_last(t_stack **stack);
 
 	// swap operations
 void	ft_swap(t_stack **stack);	
@@ -90,20 +99,27 @@ void	ft_rrb(t_stack **stack_b);
 void	ft_rrr(t_stack **stack_a, t_stack **stack_b);
 
 	// algorithms
-
-void	ft_normalize(t_stack **stack);
+void	ft_large_sort(t_stack **a, t_stack **b);
+void	ft_calculate_mov(t_stack **stack);
 void	ft_sort_stack(t_stack **stack_a, t_stack **stack_b);
 void	ft_sort_three(t_stack **a);
 void	ft_sort_five(t_stack **a, t_stack **b);
-int		ft_find_min(t_stack *stack);
+int		ft_find_min_value(t_stack *stack);
 void	ft_move_to_top(t_stack **a, int min);
+//int	ft_find_min(t_stack *stack);
+//int	ft_find_max(t_stack *stack);
 
-//int		ft_find_index(t_stack *sorted_stack, int value);
-//void	ft_sort_large(t_stack **stack_a, t_stack **stack_b);
-//void	ft_quick_sort(t_stack **stack);
-//void	ft_radix(t_stack *a, t_stack *b);
-//void ft_radix(t_stack **a, t_stack **b);
-void	ft_large_sort(t_stack **a, t_stack **b);
+
+	// cost calculation functions
+void	ft_calculate_total_cost(t_stack **a, t_stack **b);
+t_stack	*ft_find_best_move(t_stack *b);
+void	ft_calculate_cost_a(t_stack **a, t_stack *b);
+int		ft_get_max_moves(int a, int b);
+int		ft_get_min_position(t_stack *stack);
+
+int	ft_find_min(t_stack *stack);
+int	ft_find_max(t_stack *stack);
+
 
 void ft_print_stacks(t_stack **stack_a, t_stack **stack_b);		//DELETARRRR
 void ft_print_stack(t_stack **stack);							//DELETARRRR

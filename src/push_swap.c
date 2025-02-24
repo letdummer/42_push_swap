@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:34:27 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/24 10:23:26 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:35:18 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,12 @@ int	main(int ac, char **av)
 	}
 	stack_a = start_stack_a(stack_a, ac, av);
 	
-	//ft_print_stack(&stack_a);					//DELETAR
+	ft_print_stack(&stack_a);					//DELETAR
 	
 	if (!ft_is_sorted(stack_a))
-	{
-/* 		if (ft_size_list(stack_a) > 5)
-			ft_normalize(&stack_a); */
 		ft_sort_stack(&stack_a, &stack_b);
-	}
 	
-	//ft_print_stack(&stack_a);					//DELETAR
+	ft_print_stack(&stack_a);					//DELETAR
 	
 	ft_free_stack(&stack_a);
 	ft_free_stack(&stack_b);
@@ -89,7 +85,7 @@ void	ft_sort_stack(t_stack **stack_a, t_stack **stack_b)
 		ft_sort_three(stack_a);
 	else if (size == 4)
 	{
-		min = ft_find_min(*stack_a);
+		min = ft_find_min_value(*stack_a);
 		ft_move_to_top(stack_a, min);
 		ft_pb(stack_a, stack_b);
 		ft_sort_three(stack_a);
@@ -131,7 +127,7 @@ void ft_print_stack(t_stack **stack)
         return;
     current = *stack;
     first = *stack;
-    printf("\n\nSTACK:\t");
+    printf("\nSTACK:\t");
     while (current)
     {
         printf("| %d ", current->content);
@@ -156,7 +152,7 @@ void ft_print_stacks(t_stack **stack_a, t_stack **stack_b)
     first_a = *stack_a;
     first_b = *stack_b;
 
-    printf("\nSTACK A:\t");
+    printf("STACK A:\t");
     while (current_a)
     {
         printf("%d ", current_a->content);

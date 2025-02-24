@@ -19,6 +19,7 @@ OBJ_DIR		= obj
 
 #SRC_FILES = [list the ".c" files]
 SRC_FILES			= ft_check.c 	\
+					ft_cost.c		\
 					ft_free_error.c		\
 					ft_lists_utils.c	\
 					ft_norm_index.c		\
@@ -29,7 +30,6 @@ SRC_FILES			= ft_check.c 	\
 					ft_sort.c			\
 					ft_split_stack.c	\
 					push_swap.c 		\
-				#	ft_quick_sort.c		\
 
 SRC			= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ			= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

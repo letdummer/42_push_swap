@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 16:40:50 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/23 22:07:09 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/24 16:56:01 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,6 @@ int	ft_is_valid(t_stack **a, char *str)
 	}
 	return(1);	
 }
-/* int	ft_is_valid(t_stack *a, char *str)
-{
-	t_stack	*tmp;
-
-	tmp = a;
-	while (tmp)
-	{
-		if (tmp->content == ft_atoi_ps(str))
-			return (0);
-		tmp = tmp->next;
-	}
-	return (1);
-} */
 
 int	ft_size_list(t_stack *stack_a)
 {
@@ -120,7 +107,6 @@ int	ft_atoi_ps(const char *str)
 			signal = -1;
 		i++;
 	}
-//	printf("CONVERTENDO: %s\n", str);  // DEBUG
 	while (ft_isdigit(str[i]))
 	{
 		nb = (nb * 10) + (str[i] - '0');
