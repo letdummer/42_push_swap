@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:34:27 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/24 18:35:18 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:26:45 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ int	main(int ac, char **av)
 	}
 	stack_a = start_stack_a(stack_a, ac, av);
 	
-	ft_print_stack(&stack_a);					//DELETAR
+	printf("INPUT:\t");
+	ft_print_stack(&stack_a, 'x');					//DELETAR
 	
 	if (!ft_is_sorted(stack_a))
 		ft_sort_stack(&stack_a, &stack_b);
 	
-	ft_print_stack(&stack_a);					//DELETAR
+	ft_print_stack(&stack_a, 'a');					//DELETAR
 	
 	ft_free_stack(&stack_a);
 	ft_free_stack(&stack_b);
@@ -54,11 +55,9 @@ t_stack	*start_stack_a(t_stack *a, int ac, char **av)
 	i = 1;
 	if (ac < 2 || !av || !av[0])
 		ft_error(&a);
-	//printf("\nATOI start:\t");
 	while (av[i])
 	{
 		n = ft_atoi_ps(av[i]);
-		//printf("| %ld ", n);
 		if (n > INT_MAX || n < INT_MIN)
 		{	
 			ft_error(&a);
@@ -67,7 +66,6 @@ t_stack	*start_stack_a(t_stack *a, int ac, char **av)
 		add_at_last(&a, (int)n);
 		i++;
 	}
-	//ft_print_stack\(a\);				//DELETAR
 	ft_check_duplicates(&a);
 	return(a);
 }
@@ -97,28 +95,27 @@ void	ft_sort_stack(t_stack **stack_a, t_stack **stack_b)
 		ft_large_sort(stack_a, stack_b);
 }
 
-/* int	ft_find_insert_position(t_stack *stack_a, int value)
+
+
+void	ft_print_moves(t_stack **stack)
 {
-	int	position;
-	t_stack	*current;
+	t_stack *current;
+	
+	current = *stack;
 
-	position = 0;
-	current = stack_a;
-	while (current)
-	{
-		if (current->content > value)
-			break ;
-		position++;
-		current = current->next;
-	}
-	return (position);
-} */
+	printf("RA  =>\t %d \n", current->ra);
+	printf("RB  =>\t %d \n", current->rb);
+	printf("RRA =>\t %d \n", current->rra);
+	printf("RRB =>\t %d \n", current->rrb);
 
+
+    printf("\n");
+}
 
 
 
 //DELETAR
-void ft_print_stack(t_stack **stack)
+void ft_print_stack(t_stack **stack, char c)
 {
     t_stack *current;
     t_stack *first;
@@ -127,7 +124,13 @@ void ft_print_stack(t_stack **stack)
         return;
     current = *stack;
     first = *stack;
-    printf("\nSTACK:\t");
+    if (c == 'a')
+		printf("STACK A:\t");
+    else if (c == 'b')
+		printf("STACK B:\t");
+	else
+		printf("STACK %c:\t", c);
+		
     while (current)
     {
         printf("| %d ", current->content);
@@ -161,7 +164,7 @@ void ft_print_stacks(t_stack **stack_a, t_stack **stack_b)
             break;
     }
 
-	  printf("\nSTACK B:\t");
+	  printf("STACK B:\t");
     while (current_b)
     {
         printf("%d ", current_b->content);

@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:47:55 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/23 23:36:49 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:23:19 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ t_stack	*create_node(int value)
 	new_node->content = value;
 	new_node->next = NULL;
 	new_node->prev = NULL;
+	new_node->sa = 0;
+	new_node->sb = 0;
+	new_node->ra = 0;
+	new_node->rb = 0;
+	new_node->rra = 0;
+	new_node->rrb = 0;
+	new_node->total_steps = 0;
+	new_node->move = 0;
 	return (new_node);
 }
 
