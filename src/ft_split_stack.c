@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:32:44 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/23 14:07:30 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:38:51 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static char	*get_next_word(char *str, char c)
 		++index;
 	while ((str[index + len] != c) && str[index + len])
 		++len;
-	printf("len: %d\n", len);
+	//printf("len: %d\n", len);
 	next_word = malloc((size_t)len * sizeof(char) + 1);
 	if (!next_word)
 		return (NULL);

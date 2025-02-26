@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:42:30 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/26 00:02:52 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/26 23:11:02 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,19 @@ void	ft_large_sort(t_stack **a, t_stack **b)
 	int	size;
 	t_stack	*best_move;
 	t_stack *current_b;
-
+	t_stack *current_a;
+	int	best_final_position;
+	
+	best_final_position = 0;
 	size = ft_size_list(*a);
 	while (size > 3)
 	{
 		ft_pb(a, b);
 		size--;
 	}
-	ft_print_stack(b, 'b');
 	ft_sort_three(a);
+	ft_print_stack(a, 'a');
+	ft_print_stack(b, 'b');
 	while(*b)
 	{	
 		ft_calculate_mov_b(b);
@@ -48,8 +52,21 @@ void	ft_large_sort(t_stack **a, t_stack **b)
 		ft_execute_moves(best_move, a, b);
 	}
 	// Garantir que A fique alinhado corretamente
+	current_a = *a;
+	while (current_a->content > current_a->prev->content)
+	{	
+		best_final_position++;
+		current_a = current_a->next;	
+	}
+	
 	while ((*a)->content > (*a)->prev->content)
-		ft_rra(a);
+	{
+		if (best_final_position < size / 2)
+			ft_ra(a);
+		else	
+			ft_rra(a);
+	}
+
 }
 
 
@@ -66,13 +83,16 @@ void	ft_calculate_mov_b(t_stack **stack_b)
 	{
 		//if (i <= size / 2){
 			top->rb = i;
-		//	printf("RB: %d\n", i);
+			//printf("RB: %d\n", i);
 		//}
 		//else{
 			top->rrb = size - i;
+			if (i == 0)
+				top->rrb = 0;
 		//printf("RRB: %d\n", size - i);
 		//}
 		i++;
+		ft_print_moves(&top);
 		top = top->next;		
 		if (top == *stack_b)	// se chegar ao fim da lista circular, quebra o loop
 			break ;
@@ -93,7 +113,11 @@ void	ft_calculate_mov_a(t_stack **stack_a, t_stack *current_b)
 		if (ft_check_pa(a, current_b) == 1) 
 		{
 			current_b->ra = i;
+			//printf("RA: %d\n", i);
 			current_b->rra = size - i;
+			if (i == 0)
+				current_b->rra = 0;
+			//printf("RRA: %d\n", size - i);
 			// if (current_b->ra > current_b->rra)
 			// 	current_b->ra = 0;
 			// else
@@ -103,10 +127,11 @@ void	ft_calculate_mov_a(t_stack **stack_a, t_stack *current_b)
 		i++;
 		//ft_printf("B a inserir = %d\n", current_b->content);
 	//	ft_print_stack(&a, 'a');
+		ft_print_moves(&current_b);
 		a = a->next;
 		if (a == *stack_a)
 		{	
-			printf("Nao foi encontrada posiaco para o numero: %d na stack A\n", current_b->content);
+			//printf("Nao foi encontrada posiaco para o numero: %d na stack A\n", current_b->content);
 			break ;
 		}
 	}
@@ -134,9 +159,9 @@ t_stack *ft_get_min_mov(t_stack *b) // os asteriscos podem estar errados, verifi
 	while(current)
 	{
 		//ft_total_moves(b);
+		current = current->next;
 		if (current->total_steps < min->total_steps )
 			min = current;
-		current = current->next;
 	//	printf("\nStack with min moves: ");
 	//	ft_print_stack(min, 'm');
 		if (current == b)
@@ -157,7 +182,8 @@ void	ft_execute_moves(t_stack *best_move, t_stack **stack_a, t_stack **stack_b)
 {
 	t_stack *b;
 	
-	ft_print_moves(stack_b);
+	ft_print_moves(&best_move);
+	
 	while (best_move->ra-- > 0)
 		ft_ra(stack_a);
 	while (best_move->rb-- > 0)
@@ -167,7 +193,7 @@ void	ft_execute_moves(t_stack *best_move, t_stack **stack_a, t_stack **stack_b)
 	while (best_move->rra-- > 0)
 		ft_rra(stack_a);
 	while (best_move->rrb-- > 0)
-		ft_rrb(stack_a);
+		ft_rrb(stack_b);
 	while (best_move->rrr-- > 0)
 		ft_rrr(stack_a, stack_b);	
 	ft_pa(stack_a, stack_b);
@@ -196,12 +222,21 @@ void ft_optimize_moves(t_stack *b)
 	rrr_opti = *b;
 	min_opti = *b;
 
+/* 	ft_memcpy(&rr_opti, b, sizeof(t_stack));
+    ft_memcpy(&rrr_opti, b, sizeof(t_stack));
+    ft_memcpy(&min_opti, b, sizeof(t_stack)); */
+	
+	//printf(" OPTI RA: %d \n", rr_opti.ra);
 	if(rr_opti.ra > rr_opti.rb)
 		rr_opti.rr =  rr_opti.rb;
 	else
 		rr_opti.rr =  rr_opti.ra;	
 	rr_opti.ra = rr_opti.ra - rr_opti.rr;
 	rr_opti.rb = rr_opti.rb - rr_opti.rr;
+	//verificar se ha um valor a ser atualizado
+	//fazer com printf
+/* 	rr_opti.ra = 3;
+	rr_opti.rb = 4; */
 	rr_opti.rrb = 0;
 	rr_opti.rra = 0;
 		
@@ -229,8 +264,15 @@ void ft_optimize_moves(t_stack *b)
 		*b = rr_opti;
 	else
 		*b = rrr_opti;
-	if(ft_total_moves(&min_opti)->total_steps > b->total_steps )
+	if(ft_total_moves(&min_opti)->total_steps < b->total_steps )
 		*b = min_opti;
 	
-}
+
+/* 	 if(ft_total_moves(&rr_opti)->total_steps < ft_total_moves(&rrr_opti)->total_steps)
+	 	ft_memcpy(b, &rr_opti, sizeof(t_stack));
+	else
+		ft_memcpy(b, &rrr_opti, sizeof(t_stack));
+	if(ft_total_moves(&min_opti)->total_steps < b->total_steps)
+		ft_memcpy(b, &min_opti, sizeof(t_stack));*/
+	} 
 

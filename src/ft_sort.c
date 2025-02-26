@@ -6,42 +6,50 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 12:20:14 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/24 18:33:08 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:59:06 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void ft_sort_three(t_stack **a)
+void	ft_sort_three(t_stack **a)
 {
-	int first;
-	int second;
-	int third;
+    int first;
+    int second;
+    int third;
 
-	while(!ft_is_sorted(*a))
-	{
-		first = (*a)->content;
-		second = (*a)->next->content;
-		third = (*a)->next->next->content;
-		if (first > second && second > third)
-		{
-			ft_sa(a);
-			ft_rra(a);
-		}
-		else if (first < second && second > third)
-			ft_rra(a);
-		else if (first > second && second < third && first < third)
-			ft_sa(a);
-		else if (first < second && second > third && first < third)
-		{
-			ft_ra(a);
-			ft_sa(a);
-		}
-		else if (first > second && second < third)
-			ft_ra(a);
-	}
-	return ;
+    first = (*a)->content;
+    second = (*a)->next->content;
+    third = (*a)->next->next->content;
+    
+    // Check if already sorted
+    if (first < second && second < third)
+        return;
+
+    // Case: 2 1 3
+    if (first > second && second < third && first < third)
+        ft_sa(a);
+    // Case: 3 2 1
+    else if (first > second && second > third)
+    {
+        ft_sa(a);
+        ft_rra(a);
+    }
+    // Case: 3 1 2
+    else if (first > second && second < third && first > third)
+        ft_ra(a);
+    // Case: 2 3 1
+    else if (first < second && second > third && first > third)
+        ft_rra(a);
+    // Case: 1 3 2
+    else if (first < second && second > third && first < third)
+    {
+        ft_rra(a);
+        ft_sa(a);
+    }
 }
+
+
 
 void ft_sort_five(t_stack **a, t_stack **b)
 {

@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:48:30 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/23 21:36:30 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/26 10:38:07 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 	}
 	return (-1);
 } */
-
+/* 
 void ft_normalize(t_stack **stack)
 {
 	t_stack *current;
@@ -49,4 +49,4 @@ void ft_normalize(t_stack **stack)
 		current->index = i;
 		current = current->next;
 	}
-}
+} */
