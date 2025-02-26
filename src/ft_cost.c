@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:42:30 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/25 19:30:14 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/26 00:02:52 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,13 @@ void	ft_large_sort(t_stack **a, t_stack **b)
 		while (current_b)
 		{
 			ft_calculate_mov_a(a, current_b);
+			ft_optimize_moves(current_b);
 			current_b = current_b->next;
 			if (current_b == *b)
 				break;
 		}
 		//current_b = *b;
+
 
 		best_move = ft_get_min_mov(*b);
 		ft_print_stack(a, 'a');
@@ -62,14 +64,14 @@ void	ft_calculate_mov_b(t_stack **stack_b)
 	size = ft_size_list(*stack_b);
 	while (top) 
 	{
-		if (i <= size / 2){
+		//if (i <= size / 2){
 			top->rb = i;
 		//	printf("RB: %d\n", i);
-		}
-		else{
+		//}
+		//else{
 			top->rrb = size - i;
 		//printf("RRB: %d\n", size - i);
-		}
+		//}
 		i++;
 		top = top->next;		
 		if (top == *stack_b)	// se chegar ao fim da lista circular, quebra o loop
@@ -92,15 +94,15 @@ void	ft_calculate_mov_a(t_stack **stack_a, t_stack *current_b)
 		{
 			current_b->ra = i;
 			current_b->rra = size - i;
-			if (current_b->ra > current_b->rra)
-				current_b->ra = 0;
-			else
-				current_b->rra = 0;
+			// if (current_b->ra > current_b->rra)
+			// 	current_b->ra = 0;
+			// else
+			// 	current_b->rra = 0;
 			return;
 		}
 		i++;
 		//ft_printf("B a inserir = %d\n", current_b->content);
-		ft_print_stack(&a, 'a');
+	//	ft_print_stack(&a, 'a');
 		a = a->next;
 		if (a == *stack_a)
 		{	
@@ -127,11 +129,11 @@ t_stack *ft_get_min_mov(t_stack *b) // os asteriscos podem estar errados, verifi
 	t_stack *current;// os asteriscos podem estar errados, verificar os apontadores ** ou *
 	t_stack *min;// os asteriscos podem estar errados, verificar os apontadores ** ou *
 	
-	ft_total_moves(b);
 	current = b;
 	min = current;
 	while(current)
 	{
+		//ft_total_moves(b);
 		if (current->total_steps < min->total_steps )
 			min = current;
 		current = current->next;
@@ -145,18 +147,10 @@ t_stack *ft_get_min_mov(t_stack *b) // os asteriscos podem estar errados, verifi
 
 
 // calculates total moviments (+1 is for ft_pa)
-void	ft_total_moves(t_stack *b)
+t_stack		*ft_total_moves(t_stack *current)
 {
-	t_stack	*current;
-
-	current = b;
-	while (b)
-	{
-		current->total_steps = current->rb + current->rrb + current->ra + current->rra;
-		current = current->next;
-		if (current == b)
-			break;
-	}
+		current->total_steps = current->rb + current->rrb + current->ra + current->rra + current->rrr + current->rr;
+		return current;
 }
 
 void	ft_execute_moves(t_stack *best_move, t_stack **stack_a, t_stack **stack_b)
@@ -168,16 +162,22 @@ void	ft_execute_moves(t_stack *best_move, t_stack **stack_a, t_stack **stack_b)
 		ft_ra(stack_a);
 	while (best_move->rb-- > 0)
 		ft_rb(stack_b);
+	while (best_move->rr-- > 0)
+		ft_rr(stack_a, stack_b);
 	while (best_move->rra-- > 0)
 		ft_rra(stack_a);
 	while (best_move->rrb-- > 0)
-		ft_rrb(stack_b);	
+		ft_rrb(stack_a);
+	while (best_move->rrr-- > 0)
+		ft_rrr(stack_a, stack_b);	
 	ft_pa(stack_a, stack_b);
 	b = *stack_b;
 	while (*stack_b)
 	{
 		b->ra = 0;
 		b->rb = 0;
+		b->rr = 0;
+		b->rrr = 0;
 		b->rra = 0;
 		b->rrb = 0;
 		b->total_steps = 0;
@@ -186,3 +186,51 @@ void	ft_execute_moves(t_stack *best_move, t_stack **stack_a, t_stack **stack_b)
 			break ;
 	}
 }
+void ft_optimize_moves(t_stack *b)
+{
+	t_stack rr_opti;
+	t_stack rrr_opti;
+	t_stack min_opti;
+
+	rr_opti = *b;
+	rrr_opti = *b;
+	min_opti = *b;
+
+	if(rr_opti.ra > rr_opti.rb)
+		rr_opti.rr =  rr_opti.rb;
+	else
+		rr_opti.rr =  rr_opti.ra;	
+	rr_opti.ra = rr_opti.ra - rr_opti.rr;
+	rr_opti.rb = rr_opti.rb - rr_opti.rr;
+	rr_opti.rrb = 0;
+	rr_opti.rra = 0;
+		
+	if(rrr_opti.rra > rrr_opti.rrb)
+		rrr_opti.rrr =  rrr_opti.rrb;
+	else
+		rrr_opti.rrr =  rrr_opti.rra;	
+	rrr_opti.rra = rrr_opti.rra - rrr_opti.rrr;
+	rrr_opti.rrb = rrr_opti.rrb - rrr_opti.rrr;
+	rrr_opti.rb = 0;
+	rrr_opti.ra = 0;
+	
+	if(min_opti.ra > min_opti.rra)
+		min_opti.ra = 0;
+	else
+		min_opti.rra = 0;
+	if(min_opti.rb > min_opti.rrb)
+		min_opti.rb = 0;
+	else
+		min_opti.rrb = 0;
+
+		
+
+	if(ft_total_moves(&rr_opti)->total_steps < ft_total_moves(&rrr_opti)->total_steps)
+		*b = rr_opti;
+	else
+		*b = rrr_opti;
+	if(ft_total_moves(&min_opti)->total_steps > b->total_steps )
+		*b = min_opti;
+	
+}
+

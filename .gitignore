@@ -1,4 +1,3 @@
-
 *.txt
 
 *.a
@@ -11,11 +10,12 @@ push_swap_tester/
 *hecker*
 *obj*
 *.a
+
 # Temporary/backup files
 *~
 .DS_Store
 
-#to submit
+# To submit
 #*.md
 #*.sh
 #*subject*

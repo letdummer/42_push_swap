@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:34:27 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/25 17:26:45 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/26 00:01:25 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,10 @@ void	ft_print_moves(t_stack **stack)
 
 	printf("RA  =>\t %d \n", current->ra);
 	printf("RB  =>\t %d \n", current->rb);
+	printf("RR  =>\t %d \n", current->rr);
 	printf("RRA =>\t %d \n", current->rra);
 	printf("RRB =>\t %d \n", current->rrb);
+	printf("RRR =>\t %d \n", current->rrr);
 
 
     printf("\n");

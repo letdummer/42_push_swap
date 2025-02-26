@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:13:20 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/25 15:40:35 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/25 22:46:06 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ typedef struct s_stack
 	int				sb;
 	int				ra;
 	int				rb;
+	int				rr;
 //	int				pa;
 //	int				pb;
 	int				rra;
 	int				rrb;
+	int				rrr;
 	int				total_steps;
 	int				move;
 }	t_stack;
@@ -107,7 +109,8 @@ void	ft_sort_three(t_stack **a);
 void	ft_sort_five(t_stack **a, t_stack **b);
 int		ft_find_min_value(t_stack *stack);
 void	ft_move_to_top(t_stack **a, int min);
-void    ft_total_moves(t_stack *b);
+t_stack *ft_total_moves(t_stack *b);
+void 	ft_optimize_moves(t_stack *b);
 void    ft_execute_moves(t_stack *best_move, t_stack **stack_a, t_stack **stack_b);
 
 
