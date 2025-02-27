@@ -17,19 +17,19 @@ NAME= push_swap
 SRC_DIR		= src
 OBJ_DIR		= obj
 
-#SRC_FILES = [list the ".c" files]
-SRC_FILES			= ft_check.c 	\
-					ft_cost.c		\
+SRC_FILES			= ft_calc_moves.c	\
+					ft_check.c			\
+					ft_cost.c			\
 					ft_free_error.c		\
 					ft_lists_utils.c	\
-					ft_norm_index.c		\
-					ft_op_push.c 		\
-					ft_op_rev_rotate.c 	\
-					ft_op_rotate.c 		\
-					ft_op_swap.c 		\
+					ft_op_push.c		\
+					ft_op_rev_rotate.c	\
+					ft_op_rotate.c		\
+					ft_op_swap.c		\
+					ft_optimize.c		\
 					ft_sort.c			\
 					ft_split_stack.c	\
-					push_swap.c 		\
+					push_swap.c			\
 
 SRC			= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJ			= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

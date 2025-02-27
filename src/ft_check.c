@@ -6,16 +6,34 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 16:40:50 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/27 15:23:54 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:44:44 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+int	ft_is_valid(t_stack **a, char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (!str[i])
+		return ((ft_error(a), 0));
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return ((ft_error(a), 0));
+		i++;
+	}
+	return (1);
+}
+
 int	ft_is_sorted(t_stack *stack_a)
-{ 
+{
 	t_stack	*first;
-	
+
 	if (!stack_a)
 		return (1);
 	first = stack_a;
@@ -28,56 +46,28 @@ int	ft_is_sorted(t_stack *stack_a)
 	return (1);
 }
 
-int ft_check_duplicates(t_stack **stack)
+int	ft_check_duplicates(t_stack **stack)
 {
-    t_stack *current;
-    t_stack *checker;
+	t_stack	*current;
+	t_stack	*checker;
 
-    if (!stack || !*stack)
-        return (1);
-
-    current = *stack;
-    while (current)
-    {
-        checker = current->next;
-        while (checker != *stack)
-        {
-            if (current->content == checker->content)
-            {
-                ft_error(stack);
-                exit(1);
-            }
-            checker = checker->next;
-        }
-        current = current->next;
-        if (current == *stack)
-            break;
-    }
-    return(0);
-}
-
-int	ft_is_valid(t_stack **a, char *str)
-{
-	int i;
-
-	i = 0;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	if (!str[i])
+	if (!stack || !*stack)
+		return (1);
+	current = *stack;
+	while (current)
 	{
-		ft_error(a);
-		return(0);
-	}
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
+		checker = current->next;
+		while (checker != *stack)
 		{
-			ft_error(a);
-			return(0);
+			if (current->content == checker->content)
+				ft_error(stack);
+			checker = checker->next;
 		}
-		i++;
+		current = current->next;
+		if (current == *stack)
+			break ;
 	}
-	return(1);	
+	return (0);
 }
 
 int	ft_size_list(t_stack *stack_a)
@@ -121,6 +111,6 @@ int	ft_atoi_ps(const char *str)
 		i++;
 	}
 	if ((nb * signal) > 2147483647 || (nb * signal) < -2147483648)
-		ft_error(NULL);
+		return (0);
 	return (signal * nb);
 }

@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 12:20:14 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/26 17:59:06 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:38:01 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,37 @@
 
 void	ft_sort_three(t_stack **a)
 {
-    int first;
-    int second;
-    int third;
+	int	first;
+	int	second;
+	int	third;
 
-    first = (*a)->content;
-    second = (*a)->next->content;
-    third = (*a)->next->next->content;
-    
-    // Check if already sorted
-    if (first < second && second < third)
-        return;
-
-    // Case: 2 1 3
-    if (first > second && second < third && first < third)
-        ft_sa(a);
-    // Case: 3 2 1
-    else if (first > second && second > third)
-    {
-        ft_sa(a);
-        ft_rra(a);
-    }
-    // Case: 3 1 2
-    else if (first > second && second < third && first > third)
-        ft_ra(a);
-    // Case: 2 3 1
-    else if (first < second && second > third && first > third)
-        ft_rra(a);
-    // Case: 1 3 2
-    else if (first < second && second > third && first < third)
-    {
-        ft_rra(a);
-        ft_sa(a);
-    }
+	first = (*a)->content;
+	second = (*a)->next->content;
+	third = (*a)->next->next->content;
+	if (first < second && second < third)
+		return ;
+	if (first > second && second < third && first < third)
+		ft_sa(a);
+	else if (first > second && second > third)
+	{
+		ft_sa(a);
+		ft_rra(a);
+	}
+	else if (first > second && second < third && first > third)
+		ft_ra(a);
+	else if (first < second && second > third && first > third)
+		ft_rra(a);
+	else if (first < second && second > third && first < third)
+	{
+		ft_rra(a);
+		ft_sa(a);
+	}
 }
 
-
-
-void ft_sort_five(t_stack **a, t_stack **b)
+void	ft_sort_five(t_stack **a, t_stack **b)
 {
-	int min, second_min;
+	int	min;
+	int	second_min;
 
 	min = ft_find_min_value(*a);
 	ft_move_to_top(a, min);
@@ -61,7 +52,7 @@ void ft_sort_five(t_stack **a, t_stack **b)
 	second_min = ft_find_min_value(*a);
 	ft_move_to_top(a, second_min);
 	ft_pb(a, b);
-	ft_sort_three(a);	
+	ft_sort_three(a);
 	ft_pa(a, b);
 	ft_pa(a, b);
 	if (!ft_is_sorted(*a))
@@ -71,10 +62,10 @@ void ft_sort_five(t_stack **a, t_stack **b)
 	}
 }
 
-int ft_find_min_value(t_stack *stack)
+int	ft_find_min_value(t_stack *stack)
 {
-	int min;
-	t_stack *first;
+	int		min;
+	t_stack	*first;
 
 	if (!stack)
 		return (0);
@@ -91,19 +82,22 @@ int ft_find_min_value(t_stack *stack)
 	return (min);
 }
 
-void ft_move_to_top(t_stack **a, int min)
+void	ft_move_to_top(t_stack **a, int min)
 {
-	t_stack *tmp = *a;
-	int i = 0;
+	t_stack	*tmp;
+	int		i;
+
+	tmp = *a;
+	i = 0;
 	while (tmp)
 	{
 		if (tmp->content == min)
-			break;
+			break ;
 		tmp = tmp->next;
 		i++;
 	}
 	if (i == 0)
-		return;
+		return ;
 	if (i <= ft_size_list(*a) / 2)
 	{
 		while ((*a)->content != min)
@@ -114,4 +108,15 @@ void ft_move_to_top(t_stack **a, int min)
 		while ((*a)->content != min)
 			ft_rra(a);
 	}
+}
+
+void	ft_init_moves(t_stack *node)
+{
+	node->ra = 0;
+	node->rb = 0;
+	node->rr = 0;
+	node->rrr = 0;
+	node->rra = 0;
+	node->rrb = 0;
+	node->total_steps = 0;
 }
