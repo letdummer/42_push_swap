@@ -49,7 +49,7 @@ FT_PRINTF_LIB	= $(FT_PRINTF_DIR)/libftprintf.a
 
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -g
-#DFLAGS	= -g
+DFLAGS	= -g
 
 #------------------------------------------------------------------------------#
 #								COMMANDS    		  						   #
@@ -66,7 +66,7 @@ all: deps $(NAME)
 $(NAME): $(OBJ) $(LIBFT_LIB) $(FT_PRINTF_LIB)
 	$(call success, "All files have been compiled ✅")
 	$(call text, "Creating library $(NAME) [...]")
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT_LIB) $(FT_PRINTF_LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(DFLAGS) $(OBJ) $(LIBFT_LIB) $(FT_PRINTF_LIB) -o $(NAME)
 	$(call success, "Build complete: $(NAME) 📚 ✨")       
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c 
@@ -91,7 +91,7 @@ get_libft:
 	else \
 		echo "Getting Libft"; \
 		git clone --depth 1 https://github.com/letdummer/42_libft.git $(LIBFT_DIR); \
-		cp $(LIBFT_DIR)/libft/* $(LIBFT_DIR)/; \
+		cp -r $(LIBFT_DIR)/libft/* $(LIBFT_DIR)/; \
 		rm -rf $(LIBFT_DIR)/libft; \
 		echo "Done downloading Libft"; \
 	fi

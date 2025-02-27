@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lethallyn <lethallyn@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:13:20 by ldummer-          #+#    #+#             */
 /*   Updated: 2025/02/27 19:45:27 by ldummer-         ###   ########.fr       */
