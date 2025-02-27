@@ -6,14 +6,14 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 17:32:44 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/26 10:38:51 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/27 15:01:47 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 static char	*get_next_word(char *str, char c);
-static int	count_word(char *str, char c);
+int	count_word(char *str, char c);
 
 char	**split_stack(char *str, char c)
 {
@@ -39,7 +39,7 @@ char	**split_stack(char *str, char c)
 	return (result_array);
 }
 
-static int	count_word(char *str, char c)
+int	count_word(char *str, char c)
 {
 	size_t	word;
 

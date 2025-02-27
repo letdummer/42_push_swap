@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 16:40:50 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/24 16:56:01 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/27 15:23:54 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,30 @@ int	ft_is_sorted(t_stack *stack_a)
 
 int ft_check_duplicates(t_stack **stack)
 {
-	t_stack *current;
-	t_stack *checker;
+    t_stack *current;
+    t_stack *checker;
 
-	if (!stack || !*stack)
-		return (1);
+    if (!stack || !*stack)
+        return (1);
 
-	current = *stack;
-	while (current->next != *stack)
-	{
-		checker = current->next;
-		while (checker->next != *stack)
-		{
-			if (current->content == checker->content)
-			{
-				ft_error(stack);
-				exit (1);
-			}
-			checker = checker->next;
-		}
-		current = current->next;
-	}
-	return(0);
+    current = *stack;
+    while (current)
+    {
+        checker = current->next;
+        while (checker != *stack)
+        {
+            if (current->content == checker->content)
+            {
+                ft_error(stack);
+                exit(1);
+            }
+            checker = checker->next;
+        }
+        current = current->next;
+        if (current == *stack)
+            break;
+    }
+    return(0);
 }
 
 int	ft_is_valid(t_stack **a, char *str)
@@ -62,11 +64,17 @@ int	ft_is_valid(t_stack **a, char *str)
 	if (str[i] == '-' || str[i] == '+')
 		i++;
 	if (!str[i])
-		return((ft_error(a)), 0);
+	{
+		ft_error(a);
+		return(0);
+	}
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
-			return((ft_error(a)), 0);
+		{
+			ft_error(a);
+			return(0);
+		}
 		i++;
 	}
 	return(1);	

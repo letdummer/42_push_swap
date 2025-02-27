@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:13:20 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/25 22:46:06 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/27 15:01:37 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,6 @@ void    ft_execute_moves(t_stack *best_move, t_stack **stack_a, t_stack **stack_
 int	ft_check_pa(t_stack *a, t_stack *b);
 
 t_stack *ft_get_min_mov(t_stack *b);
+int	count_word(char *str, char c);
 
-void 	ft_print_stacks(t_stack **stack_a, t_stack **stack_b);		//DELETARRRR
-void 	ft_print_stack(t_stack **stack, char c);							//DELETARRRR
-void	ft_print_moves(t_stack **stack);						//DELETARRRR
 #endif

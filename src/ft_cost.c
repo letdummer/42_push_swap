@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:42:30 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/26 23:11:02 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/26 23:19:07 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	ft_large_sort(t_stack **a, t_stack **b)
 		size--;
 	}
 	ft_sort_three(a);
-	ft_print_stack(a, 'a');
-	ft_print_stack(b, 'b');
+	//ft_print_stack(a, 'a');
+	//ft_print_stack(b, 'b');
 	while(*b)
 	{	
 		ft_calculate_mov_b(b);
@@ -46,9 +46,9 @@ void	ft_large_sort(t_stack **a, t_stack **b)
 
 
 		best_move = ft_get_min_mov(*b);
-		ft_print_stack(a, 'a');
-		ft_print_stack(b, 'b');
-		printf("BEST_MOVE content => %d\n", best_move->content);
+		//ft_print_stack(a, 'a');
+		//ft_print_stack(b, 'b');
+		//printf("BEST_MOVE content => %d\n", best_move->content);
 		ft_execute_moves(best_move, a, b);
 	}
 	// Garantir que A fique alinhado corretamente
@@ -92,7 +92,7 @@ void	ft_calculate_mov_b(t_stack **stack_b)
 		//printf("RRB: %d\n", size - i);
 		//}
 		i++;
-		ft_print_moves(&top);
+		//ft_print_moves(&top);
 		top = top->next;		
 		if (top == *stack_b)	// se chegar ao fim da lista circular, quebra o loop
 			break ;
@@ -127,7 +127,7 @@ void	ft_calculate_mov_a(t_stack **stack_a, t_stack *current_b)
 		i++;
 		//ft_printf("B a inserir = %d\n", current_b->content);
 	//	ft_print_stack(&a, 'a');
-		ft_print_moves(&current_b);
+		//ft_print_moves(&current_b);
 		a = a->next;
 		if (a == *stack_a)
 		{	
@@ -182,7 +182,7 @@ void	ft_execute_moves(t_stack *best_move, t_stack **stack_a, t_stack **stack_b)
 {
 	t_stack *b;
 	
-	ft_print_moves(&best_move);
+//ft_print_moves(&best_move);
 	
 	while (best_move->ra-- > 0)
 		ft_ra(stack_a);

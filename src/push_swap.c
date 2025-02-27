@@ -6,54 +6,80 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 19:34:27 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/26 23:15:45 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:02:35 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-int	main(int ac, char **av)
-{
-	t_stack	*stack_a;
-	t_stack	*stack_b;
-	int		i;
+#include <stdlib.h>
+#include <unistd.h>
 
-	stack_a = NULL;
-	stack_b = NULL;
-	if (ac == 1 || (ac == 2 && !av[1][0]))
-		return (-1);
-	else if (ac == 2)
-		av = ft_split(av[1], ' ');
-	i = 1;
-	while (av[i])
-	{
-		if (!ft_is_valid(&stack_a, av[i]))
-			return(-1);
-		i++;
-	}
-	stack_a = start_stack_a(stack_a, ac, av);
+int main(int ac, char **av)
+{
+    t_stack *stack_a;
+    t_stack *stack_b;
+    char    **args;
+    int     i;
+
+    stack_a = NULL;
+    stack_b = NULL;
+
+    if (ac == 1)
+        exit(0);
+
+    if (ac == 2 && (!av[1][0] || count_word(av[1], ' ') == 1))
+    {
+        write(2, "Error\n", 6);
+        return (1);
+    }
+
+    if (ac == 2)
+    {
+        args = ft_split(av[1], ' ');
+        if (!args)
+        {
+            write(2, "Error\n", 6);
+            return (1);
+        }
+    }
+    else
+        args = av;
+
+    i = (ac == 2) ? 0 : 1;	///MUDAR, ELIMINAR TERNARIO
+    while (args[i])
+    {
+        if (!ft_is_valid(&stack_a, args[i]))
+        {
+            if (ac == 2)
+                free_split(args);
+            write(2, "Error\n", 6);
+            return (1);
+        }
+        i++;
+    }
+
+    stack_a = start_stack_a(stack_a, ac, args);
 	
-	printf("INPUT:\t");
-	ft_print_stack(&stack_a, 's');					//DELETAR
-	
-	if (!ft_is_sorted(stack_a))
-		ft_sort_stack(&stack_a, &stack_b);
-	
-	printf("OUTPUT:\t");
-	ft_print_stack(&stack_a, 'e');					//DELETAR
-	
-	ft_free_stack(&stack_a);
-	ft_free_stack(&stack_b);
-	return (0);
+    if (!ft_is_sorted(stack_a))
+        ft_sort_stack(&stack_a, &stack_b);
+
+    ft_free_stack(&stack_a);
+    ft_free_stack(&stack_b);
+    if (ac == 2)
+        free_split(args);
+
+    return (0);
 }
+
 
 t_stack	*start_stack_a(t_stack *a, int ac, char **av)
 {
 	long	n;
 	int		i;
 	
-	i = 1;
+	i = 0;
 	if (ac < 2 || !av || !av[0])
 		ft_error(&a);
 	while (av[i])
@@ -96,7 +122,7 @@ void	ft_sort_stack(t_stack **stack_a, t_stack **stack_b)
 		ft_large_sort(stack_a, stack_b);
 }
 
-
+/* 
 
 void	ft_print_moves(t_stack **stack)
 {
@@ -178,3 +204,4 @@ void ft_print_stacks(t_stack **stack_a, t_stack **stack_b)
     printf("\n");
 }
 
+ */
