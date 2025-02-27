@@ -6,13 +6,12 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:47:00 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/19 15:29:16 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/02/23 19:23:58 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// moves the top element of stack a at the top of stack b
 void	ft_push(t_stack **from, t_stack **to)
 {
 	t_stack	*node;
