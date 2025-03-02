@@ -6,7 +6,7 @@
 #    By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/01 15:47:59 by ldummer-          #+#    #+#              #
-#    Updated: 2025/03/02 11:12:06 by ldummer-         ###   ########.fr        #
+#    Updated: 2025/03/02 11:59:35 by ldummer-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,15 +81,10 @@ deps: get_libft
 	@echo "[$(GREEN_BOLD)Nothing to be done!$(RESET)]"
 
 get_libft:
-	@if [ -d "$(LIBFT_DIR)" ]; then \
-		echo "[libft] folder found"; \
-	else \
-		echo "Getting Libft"; \
-		git clone --depth 1 https://github.com/letdummer/42_libft.git $(LIBFT_DIR); \
-		cp -r $(LIBFT_DIR)/libft/* $(LIBFT_DIR)/; \
-		rm -rf $(LIBFT_DIR)/libft; \
-		echo "Done downloading Libft"; \
-	fi
+	@rm -rf $(LIBFT_DIR)
+	@echo "Getting Libft"
+	@git clone --depth 1 https://github.com/letdummer/42_libft.git $(LIBFT_DIR)
+	@echo "Done downloading Libft"
 
 
 #------------------------------------------------------------------------------#
