@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 18:08:36 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/27 18:30:36 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/03/02 11:10:21 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,3 @@ void	ft_free_stack(t_stack **stack)
 	}
 }
 
-void	free_split(char **split)
-{
-	int	i;
-
-	if (!split)
-		return ;
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-}

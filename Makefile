@@ -6,7 +6,7 @@
 #    By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/01 15:47:59 by ldummer-          #+#    #+#              #
-#    Updated: 2025/03/01 15:48:00 by ldummer-         ###   ########.fr        #
+#    Updated: 2025/03/02 11:12:06 by ldummer-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ SRC_FILES			= ft_calc_moves.c	\
 					ft_op_swap.c		\
 					ft_optimize.c		\
 					ft_sort.c			\
-					ft_split_stack.c	\
 					push_swap.c			\
 
 SRC			= $(addprefix $(SRC_DIR)/, $(SRC_FILES))
@@ -40,10 +39,8 @@ OBJ			= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 LIBFT_DIR	= libft
 LIBFT_LIB	= $(LIBFT_DIR)/libft.a
 
-FT_PRINTF_DIR	= ft_printf
+FT_PRINTF_DIR	= libft/ft_printf
 FT_PRINTF_LIB	= $(FT_PRINTF_DIR)/libftprintf.a
-
-#INPUT		= 1 3 5 -10 -50 87 6
 
 
 #------------------------------------------------------------------------------#
@@ -53,11 +50,6 @@ FT_PRINTF_LIB	= $(FT_PRINTF_DIR)/libftprintf.a
 CC		= cc
 CFLAGS	= -Wall -Wextra -Werror -g
 DFLAGS	= -g
-
-#------------------------------------------------------------------------------#
-#								COMMANDS    		  						   #
-#------------------------------------------------------------------------------#
-
 RM= rm -f
 
 #------------------------------------------------------------------------------#
@@ -85,7 +77,7 @@ $(FT_PRINTF_LIB) : $(FT_PRINTF_DIR)
 	$(call text, "COMPILING FT_PRINTF")
 	@make -C $(FT_PRINTF_DIR)
 
-deps: get_libft get_ft_printf
+deps: get_libft
 	@echo "[$(GREEN_BOLD)Nothing to be done!$(RESET)]"
 
 get_libft:
@@ -99,14 +91,6 @@ get_libft:
 		echo "Done downloading Libft"; \
 	fi
 
-get_ft_printf:
-	@if [ -d "$(FT_PRINTF_DIR)" ]; then \
-		echo "[ft_printf] folder found"; \
-	else \
-		echo "Getting ft_printf"; \
-		git clone https://github.com/letdummer/42_printf.git $(FT_PRINTF_DIR); \
-		echo "Done downloading ft_printf"; \
-	fi
 
 #------------------------------------------------------------------------------#
 #								CLEAN-UP RULES 		  						   #

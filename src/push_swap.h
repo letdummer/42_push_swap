@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lethallyn <lethallyn@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:13:20 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/02/27 19:45:27 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/03/02 11:10:34 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int		main(int ac, char **av);
 
 	// stack initialization
 t_stack	*start_stack_a(t_stack *a, int ac, char **av);
-char	**split_stack(char *str, char c);
-int		count_word(char *str, char c);
 void	ft_sort_stack(t_stack **stack_a, t_stack **stack_b);
 
 	// check args	
@@ -63,7 +61,6 @@ int		ft_atoi_ps(const char *str);
 	// handle errors and free stack
 void	ft_error(t_stack **stack);
 void	ft_free_stack(t_stack **stack);
-void	free_split(char **split);
 
 	// list utils
 t_stack	*create_node(int value);
