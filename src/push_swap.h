@@ -6,7 +6,7 @@
 /*   By: ldummer- <ldummer-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:13:20 by ldummer-          #+#    #+#             */
-/*   Updated: 2025/03/02 11:17:11 by ldummer-         ###   ########.fr       */
+/*   Updated: 2025/03/02 12:03:58 by ldummer-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /*  						 LIBRARYS	                                      */
 /* ************************************************************************** */
 
-# include "../libft/libft.h"
+# include "../libft/libft/libft.h"
 # include "../libft/ft_printf/libftprintf.h"
 # include <unistd.h>			// read()	/	write()
 # include <stdlib.h>			// malloc()	/	free()	/ exit()
